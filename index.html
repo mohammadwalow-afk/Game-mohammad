@@ -10,17 +10,14 @@
 <meta name="theme-color" content="#0284c7" />
 <title>محمد باشا</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%230284c7'/%3E%3Ctext x='50' y='44' font-size='38' text-anchor='middle'%3E👑%3C/text%3E%3Ctext x='50' y='80' font-size='38' text-anchor='middle'%3E👶%3C/text%3E%3C/svg%3E" />
-<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%230284c7'/%3E%3Ctext x='50' y='44' font-size='38' text-anchor='middle'%3E👑%3C/text%3E%3Ctext x='50' y='80' font-size='38' text-anchor='middle'%3E👶%3C/text%3E%3C/svg%3E" />
 <style>
   * { box-sizing: border-box; user-select: none; -webkit-user-select: none; -webkit-touch-callout: none; }
   html, body {
     margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden;
     font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
-    background: #075985;
-    touch-action: none;
+    background: #075985; touch-action: none;
   }
   #gameCanvas { display: block; width: 100%; height: 100%; }
-
   #hud {
     position: fixed; top: 8px; left: 12px; right: 12px;
     display: flex; justify-content: space-between; align-items: center;
@@ -28,9 +25,8 @@
   }
   .hud-group { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; pointer-events: auto; }
   .hud-pill {
-    background: linear-gradient(180deg, rgba(14, 65, 130, 0.9), rgba(10, 40, 85, 0.9));
-    border: 2px solid rgba(255,255,255,0.65);
-    backdrop-filter: blur(6px);
+    background: linear-gradient(180deg, rgba(12, 55, 110, 0.88), rgba(8, 32, 70, 0.9));
+    border: 2px solid rgba(255,255,255,0.65); backdrop-filter: blur(6px);
     color: #fff; padding: 5px 12px; border-radius: 999px;
     font-weight: bold; font-size: 13px; display: flex; align-items: center; gap: 6px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.32);
@@ -43,8 +39,7 @@
   }
   #progressFill {
     height: 100%; width: 0%;
-    background: linear-gradient(90deg, #fde047, #f59e0b);
-    transition: width 0.1s linear;
+    background: linear-gradient(90deg, #fde047, #f59e0b); transition: width 0.1s linear;
   }
   .hud-btn {
     cursor: pointer; background: linear-gradient(145deg, #1d4ed8, #1e3a8a);
@@ -54,7 +49,6 @@
     box-shadow: 0 3px 8px rgba(0,0,0,0.35);
   }
   .hud-btn:active { transform: scale(0.92); }
-
   #controls {
     position: fixed; bottom: 12px; left: 16px; right: 16px;
     display: flex; justify-content: space-between; align-items: flex-end;
@@ -63,46 +57,32 @@
   .ctrl-group { display: flex; gap: 10px; pointer-events: auto; align-items: center; }
   .ctrl-btn {
     width: 64px; height: 64px; border-radius: 50%;
-    border: 3px solid rgba(255,255,255,0.92);
-    color: #fff; font-size: 24px; font-weight: bold;
+    border: 3px solid rgba(255,255,255,0.92); color: #fff; font-size: 24px; font-weight: bold;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
-    box-shadow: 0 6px 16px rgba(0,0,0,0.45);
-    cursor: pointer; transition: transform 0.08s;
+    box-shadow: 0 6px 16px rgba(0,0,0,0.45); cursor: pointer; transition: transform 0.08s;
   }
   .ctrl-btn:active, .ctrl-btn.active { transform: scale(0.9); filter: brightness(1.15); }
   .btn-move { background: linear-gradient(145deg, #3b82f6, #1d4ed8); }
-  .btn-jump {
-    width: 82px; height: 82px; font-size: 16px;
-    background: linear-gradient(145deg, #4ade80, #16a34a);
-  }
-  .btn-cam {
-    width: 52px; height: 52px; font-size: 18px;
-    background: linear-gradient(145deg, #fbbf24, #d97706);
-  }
-
+  .btn-jump { width: 82px; height: 82px; font-size: 16px; background: linear-gradient(145deg, #4ade80, #16a34a); }
+  .btn-cam { width: 52px; height: 52px; font-size: 18px; background: linear-gradient(145deg, #fbbf24, #d97706); }
   #rotateBanner {
     position: fixed; top: 54px; left: 50%; transform: translateX(-50%);
-    background: rgba(234, 88, 12, 0.94); color: #fff;
-    padding: 6px 14px; border-radius: 999px; font-size: 13px; font-weight: bold;
-    z-index: 25; border: 2px solid #fff; display: none; align-items: center; gap: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+    background: rgba(234, 88, 12, 0.94); color: #fff; padding: 6px 14px; border-radius: 999px;
+    font-size: 13px; font-weight: bold; z-index: 25; border: 2px solid #fff;
+    display: none; align-items: center; gap: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.35);
   }
-
   .overlay {
     position: fixed; inset: 0;
     background: radial-gradient(circle at center, rgba(14, 58, 110, 0.84), rgba(5, 18, 38, 0.94));
-    backdrop-filter: blur(8px);
-    display: flex; align-items: center; justify-content: center;
+    backdrop-filter: blur(8px); display: flex; align-items: center; justify-content: center;
     z-index: 30; padding: 12px;
   }
   .hidden { display: none !important; }
   .card {
     background: linear-gradient(180deg, #164e87, #0c2647);
-    border: 3px solid rgba(255,255,255,0.45);
-    border-radius: 24px; padding: 18px 20px;
+    border: 3px solid rgba(255,255,255,0.45); border-radius: 24px; padding: 18px 20px;
     width: min(590px, 95vw); max-height: 92vh; overflow-y: auto;
-    color: #fff; text-align: center;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+    color: #fff; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.6);
   }
   .card h1 {
     margin: 0 0 6px; font-size: 25px;
@@ -112,17 +92,13 @@
   .card p { margin: 6px 0 12px; color: #e0f2fe; line-height: 1.5; font-size: 14px; }
   .menu-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; align-items: start; }
   @media (max-width: 520px) { .menu-cols { grid-template-columns: 1fr; } }
-
   .btn-primary {
-    background: linear-gradient(135deg, #22c55e, #15803d);
-    border: 2px solid #fff; color: #fff;
+    background: linear-gradient(135deg, #22c55e, #15803d); border: 2px solid #fff; color: #fff;
     padding: 12px 20px; border-radius: 999px; font-size: 17px; font-weight: bold;
-    cursor: pointer; width: 100%; margin-top: 8px;
-    box-shadow: 0 6px 18px rgba(34, 197, 94, 0.4);
+    cursor: pointer; width: 100%; margin-top: 8px; box-shadow: 0 6px 18px rgba(34, 197, 94, 0.4);
   }
   .btn-secondary {
-    background: linear-gradient(135deg, #0ea5e9, #1d4ed8);
-    border: 2px solid rgba(255,255,255,0.65); color: #fff;
+    background: linear-gradient(135deg, #0ea5e9, #1d4ed8); border: 2px solid rgba(255,255,255,0.65); color: #fff;
     padding: 10px 16px; border-radius: 999px; font-size: 14px; font-weight: bold;
     cursor: pointer; width: 100%; margin-top: 8px;
   }
@@ -131,8 +107,8 @@
     border-radius: 16px; padding: 10px; text-align: center; font-size: 12px; color: #dbeafe;
   }
   #facePreviewCanvas {
-    width: 86px; height: 86px; border-radius: 50%;
-    border: 3px solid #facc15; background: #f8cbb4; display: block; margin: 0 auto 6px;
+    width: 86px; height: 86px; border-radius: 50%; border: 3px solid #facc15;
+    background: #f8cbb4; display: block; margin: 0 auto 6px;
   }
   .slider-row { display: flex; align-items: center; gap: 6px; font-size: 11px; margin-top: 4px; }
   .slider-row input { flex: 1; }
@@ -141,7 +117,6 @@
     padding: 6px 12px; border-radius: 999px; cursor: pointer; margin-top: 4px; font-size: 12px;
   }
   .file-label input { display: none; }
-
   .level-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 10px 0; }
   .level-item {
     display: flex; justify-content: space-between; align-items: center;
@@ -193,7 +168,7 @@
 <div id="startOverlay" class="overlay">
   <div class="card">
     <h1>👑 مغامرة محمد باشا 3D</h1>
-    <p>5 مراحل طويلة وسط الجبال الثلجية والأشجار والأنهار والشلالات — اجمع الذهب وادعس على وحوش الطماطم الشريرة!</p>
+    <p>نسخة الغرافيك الواقعي! 5 مراحل وسط الجبال الثلجية والأنهار والشلالات — اجمع الذهب وادعس على وحوش الطماطم!</p>
     <div class="menu-cols">
       <div>
         <div class="photo-box">
@@ -217,9 +192,6 @@
       <div>
         <button class="btn-primary" id="btnStartGame">🚀 ابدأ اللعب (شاشة أفقية)</button>
         <button class="btn-secondary" id="btnOpenLevels">🗺️ اختيار المرحلة (5 مراحل)</button>
-        <p style="font-size:12px; color:#bae6fd; margin-top:10px;">
-          💡 نصيحة: بمجرد اختيار صورة الطفل مرة واحدة ستُحفظ داخل جهازك تلقائياً لكل المرات القادمة!
-        </p>
       </div>
     </div>
   </div>
@@ -249,15 +221,11 @@
 const SoundEngine = {
   ctx: null, muted: false, customLaughUrl: null, customCryUrl: null,
   init() {
-    if (!this.ctx) {
-      const AC = window.AudioContext || window.webkitAudioContext;
-      this.ctx = new AC();
-    }
+    if (!this.ctx) { const AC = window.AudioContext || window.webkitAudioContext; this.ctx = new AC(); }
     if (this.ctx.state === 'suspended') this.ctx.resume();
   },
   playTone(freq, endFreq, duration, type = 'sine', vol = 0.2, delay = 0) {
-    if (this.muted) return;
-    this.init();
+    if (this.muted) return; this.init();
     const now = this.ctx.currentTime + delay;
     const osc = this.ctx.createOscillator(), gain = this.ctx.createGain();
     osc.type = type; osc.frequency.setValueAtTime(freq, now);
@@ -275,18 +243,13 @@ const SoundEngine = {
     if (this.muted) return;
     if (this.customLaughUrl) { new Audio(this.customLaughUrl).play().catch(() => {}); return; }
     this.init();
-    [
-      { t: 0.00, f1: 580, f2: 880, d: 0.12 }, { t: 0.14, f1: 640, f2: 960, d: 0.12 },
-      { t: 0.28, f1: 700, f2: 1050, d: 0.13 }, { t: 0.45, f1: 620, f2: 920, d: 0.11 },
-      { t: 0.59, f1: 720, f2: 1100, d: 0.15 }, { t: 0.78, f1: 680, f2: 990, d: 0.18 }
-    ].forEach(b => {
+    [{ t: 0, f1: 580, f2: 880, d: 0.12 }, { t: 0.14, f1: 640, f2: 960, d: 0.12 }, { t: 0.28, f1: 700, f2: 1050, d: 0.13 },
+     { t: 0.45, f1: 620, f2: 920, d: 0.11 }, { t: 0.59, f1: 720, f2: 1100, d: 0.15 }, { t: 0.78, f1: 680, f2: 990, d: 0.18 }].forEach(b => {
       const now = this.ctx.currentTime + b.t;
       const osc = this.ctx.createOscillator(), osc2 = this.ctx.createOscillator();
       const filter = this.ctx.createBiquadFilter(), gain = this.ctx.createGain();
       osc.type = 'triangle'; osc2.type = 'sine';
-      osc.frequency.setValueAtTime(b.f1, now);
-      osc.frequency.exponentialRampToValueAtTime(b.f2, now + b.d * 0.5);
-      osc.frequency.exponentialRampToValueAtTime(b.f1 * 1.1, now + b.d);
+      osc.frequency.setValueAtTime(b.f1, now); osc.frequency.exponentialRampToValueAtTime(b.f2, now + b.d * 0.5);
       osc2.frequency.setValueAtTime(b.f1 * 2, now);
       filter.type = 'bandpass'; filter.frequency.setValueAtTime(1100, now); filter.Q.setValueAtTime(2.5, now);
       gain.gain.setValueAtTime(0.001, now); gain.gain.linearRampToValueAtTime(0.32, now + 0.02);
@@ -300,30 +263,23 @@ const SoundEngine = {
     if (this.customCryUrl) { new Audio(this.customCryUrl).play().catch(() => {}); return; }
     this.init();
     [0.0, 0.52, 1.05].forEach((offset, idx) => {
-      const now = this.ctx.currentTime + offset;
-      const dur = idx === 2 ? 0.65 : 0.45;
+      const now = this.ctx.currentTime + offset; const dur = idx === 2 ? 0.65 : 0.45;
       const osc = this.ctx.createOscillator(), lfo = this.ctx.createOscillator();
       const lfoGain = this.ctx.createGain(), filter = this.ctx.createBiquadFilter(), gain = this.ctx.createGain();
-      osc.type = 'sawtooth';
-      osc.frequency.setValueAtTime(520, now);
-      osc.frequency.linearRampToValueAtTime(680, now + 0.1);
-      osc.frequency.exponentialRampToValueAtTime(360, now + dur);
+      osc.type = 'sawtooth'; osc.frequency.setValueAtTime(520, now);
+      osc.frequency.linearRampToValueAtTime(680, now + 0.1); osc.frequency.exponentialRampToValueAtTime(360, now + dur);
       lfo.frequency.setValueAtTime(9, now); lfoGain.gain.setValueAtTime(18, now);
       lfo.connect(lfoGain); lfoGain.connect(osc.frequency);
       filter.type = 'bandpass'; filter.frequency.setValueAtTime(950, now); filter.Q.setValueAtTime(2.2, now);
       gain.gain.setValueAtTime(0.001, now); gain.gain.linearRampToValueAtTime(0.28, now + 0.07);
-      gain.gain.setValueAtTime(0.24, now + dur - 0.1); gain.gain.exponentialRampToValueAtTime(0.001, now + dur);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + dur);
       osc.connect(filter); filter.connect(gain); gain.connect(this.ctx.destination);
       osc.start(now); lfo.start(now); osc.stop(now + dur + 0.03); lfo.stop(now + dur + 0.03);
     });
   }
 };
-document.getElementById('customLaugh').addEventListener('change', e => {
-  if (e.target.files[0]) SoundEngine.customLaughUrl = URL.createObjectURL(e.target.files[0]);
-});
-document.getElementById('customCry').addEventListener('change', e => {
-  if (e.target.files[0]) SoundEngine.customCryUrl = URL.createObjectURL(e.target.files[0]);
-});
+document.getElementById('customLaugh').addEventListener('change', e => { if (e.target.files[0]) SoundEngine.customLaughUrl = URL.createObjectURL(e.target.files[0]); });
+document.getElementById('customCry').addEventListener('change', e => { if (e.target.files[0]) SoundEngine.customCryUrl = URL.createObjectURL(e.target.files[0]); });
 
 function enterLandscapeFullscreen() {
   const el = document.documentElement;
@@ -332,871 +288,559 @@ function enterLandscapeFullscreen() {
     Promise.resolve(req.call(el)).then(() => {
       if (screen.orientation && screen.orientation.lock) screen.orientation.lock('landscape').catch(() => {});
     }).catch(() => {});
-  } else if (screen.orientation && screen.orientation.lock) {
-    screen.orientation.lock('landscape').catch(() => {});
-  }
+  } else if (screen.orientation && screen.orientation.lock) screen.orientation.lock('landscape').catch(() => {});
 }
-
 let gameState = 'menu';
 function checkOrientationBanner() {
-  const banner = document.getElementById('rotateBanner');
-  banner.style.display = (gameState === 'playing' && window.innerHeight > window.innerWidth) ? 'flex' : 'none';
+  document.getElementById('rotateBanner').style.display = (gameState === 'playing' && window.innerHeight > window.innerWidth) ? 'flex' : 'none';
+}
+// === END OF PART 1 ===
+// ===================== REALISTIC TEXTURES & BUMP MAPS =====================
+function createSkyTexture(topCol, midCol, horCol) {
+  const c = document.createElement('canvas'); c.width = 512; c.height = 256;
+  const ctx = c.getContext('2d');
+  const g = ctx.createLinearGradient(0, 0, 0, 256);
+  g.addColorStop(0.0, topCol); g.addColorStop(0.55, midCol); g.addColorStop(1.0, horCol);
+  ctx.fillStyle = g; ctx.fillRect(0, 0, 512, 256);
+  // Soft realistic wispy clouds
+  for (let i = 0; i < 38; i++) {
+    const x = (i * 89) % 512, y = 45 + (i * 37) % 105;
+    ctx.fillStyle = 'rgba(255,255,255,0.22)';
+    ctx.beginPath(); ctx.ellipse(x, y, 42 + (i % 35), 9 + (i % 8), 0, 0, Math.PI * 2); ctx.fill();
+  }
+  const tex = new THREE.CanvasTexture(c);
+  tex.mapping = THREE.EquirectangularReflectionMapping;
+  return tex;
 }
 
-// ===================== REALISTIC NATURE & OUTFIT TEXTURES =====================
-function createMeadowGrassTexture(cBase, cMid, cBright, hasFlowers = true) {
-  const c = document.createElement('canvas'); c.width = 256; c.height = 256;
-  const ctx = c.getContext('2d');
-  ctx.fillStyle = cBase;
-  ctx.fillRect(0, 0, 256, 256);
-  for (let i = 0; i < 2000; i++) {
+function createGrassTextures(cBase, cMid, cBright) {
+  const c = document.createElement('canvas'), b = document.createElement('canvas');
+  c.width = b.width = 256; c.height = b.height = 256;
+  const ctx = c.getContext('2d'), bctx = b.getContext('2d');
+  ctx.fillStyle = cBase; ctx.fillRect(0, 0, 256, 256);
+  bctx.fillStyle = '#404040'; bctx.fillRect(0, 0, 256, 256);
+  for (let i = 0; i < 2400; i++) {
     const x = (Math.sin(i * 12.9898) * 43758.5453 % 1 + 1) % 1 * 256;
     const y = (Math.sin(i * 78.233) * 43758.5453 % 1 + 1) % 1 * 256;
     ctx.strokeStyle = i % 3 === 0 ? cBright : (i % 2 === 0 ? cMid : cBase);
-    ctx.lineWidth = 1.8;
-    ctx.beginPath();
-    ctx.moveTo(x, y);
-    ctx.lineTo(x + (i % 5 - 2) * 1.5, y - 6 - (i % 4) * 2.2);
-    ctx.stroke();
+    ctx.lineWidth = 1.8; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + (i % 5 - 2) * 1.4, y - 6 - (i % 4) * 2); ctx.stroke();
+    bctx.strokeStyle = i % 2 === 0 ? '#d4d4d4' : '#808080';
+    bctx.lineWidth = 1.5; bctx.beginPath(); bctx.moveTo(x, y); bctx.lineTo(x, y - 6); bctx.stroke();
   }
-  if (hasFlowers) {
-    for (let f = 0; f < 42; f++) {
-      const fx = ((f * 73) % 240) + 8;
-      const fy = ((f * 137) % 240) + 8;
-      ctx.fillStyle = f % 3 === 0 ? '#fef08a' : '#ffffff';
-      ctx.beginPath(); ctx.arc(fx, fy, 2.8, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = '#facc15';
-      ctx.beginPath(); ctx.arc(fx, fy, 1.1, 0, Math.PI * 2); ctx.fill();
-    }
+  for (let f = 0; f < 36; f++) {
+    const fx = ((f * 73) % 240) + 8, fy = ((f * 137) % 240) + 8;
+    ctx.fillStyle = f % 3 === 0 ? '#fef08a' : '#ffffff';
+    ctx.beginPath(); ctx.arc(fx, fy, 2.6, 0, Math.PI * 2); ctx.fill();
   }
-  const tex = new THREE.CanvasTexture(c);
-  tex.wrapS = THREE.RepeatWrapping; tex.wrapT = THREE.RepeatWrapping;
-  tex.repeat.set(3, 2);
-  return tex;
+  const map = new THREE.CanvasTexture(c), bump = new THREE.CanvasTexture(b);
+  [map, bump].forEach(t => { t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(3, 2); });
+  return { map, bump };
 }
 
-function createCliffRockTexture(cBase, cDark, cLight) {
-  const c = document.createElement('canvas'); c.width = 256; c.height = 256;
-  const ctx = c.getContext('2d');
+function createRockTextures(cBase, cDark, cLight) {
+  const c = document.createElement('canvas'), b = document.createElement('canvas');
+  c.width = b.width = 256; c.height = b.height = 256;
+  const ctx = c.getContext('2d'), bctx = b.getContext('2d');
   const grad = ctx.createLinearGradient(0, 0, 0, 256);
-  grad.addColorStop(0, cLight);
-  grad.addColorStop(0.5, cBase);
-  grad.addColorStop(1, cDark);
-  ctx.fillStyle = grad;
-  ctx.fillRect(0, 0, 256, 256);
-
-  for (let i = 0; i < 42; i++) {
-    const x = (i * 19) % 256;
-    const w = 10 + (i % 4) * 8;
-    ctx.fillStyle = i % 2 === 0 ? cDark : cLight;
-    ctx.globalAlpha = 0.25;
-    ctx.fillRect(x, 0, w, 256);
+  grad.addColorStop(0, cLight); grad.addColorStop(0.55, cBase); grad.addColorStop(1, cDark);
+  ctx.fillStyle = grad; ctx.fillRect(0, 0, 256, 256);
+  bctx.fillStyle = '#808080'; bctx.fillRect(0, 0, 256, 256);
+  for (let i = 0; i < 120; i++) {
+    const x = (i * 53) % 256, y = (i * 97) % 256, w = 14 + (i % 4) * 14, h = 12 + (i % 3) * 12;
+    ctx.fillStyle = i % 2 === 0 ? cDark : cLight; ctx.globalAlpha = 0.25; ctx.fillRect(x, y, w, h);
+    bctx.fillStyle = i % 2 === 0 ? '#303030' : '#d8d8d8'; bctx.globalAlpha = 0.45; bctx.fillRect(x, y, w, h);
   }
-  ctx.globalAlpha = 0.65;
-  ctx.strokeStyle = cDark;
-  ctx.lineWidth = 2.4;
-  for (let v = 14; v < 256; v += 24) {
-    ctx.beginPath();
-    ctx.moveTo(v, 0);
-    ctx.lineTo(v + ((v % 3) - 1) * 7, 90);
-    ctx.lineTo(v - ((v % 2) * 8), 180);
-    ctx.lineTo(v + 3, 256);
-    ctx.stroke();
+  ctx.globalAlpha = 0.6; bctx.globalAlpha = 0.85;
+  ctx.strokeStyle = cDark; bctx.strokeStyle = '#151515'; ctx.lineWidth = 2.5; bctx.lineWidth = 3;
+  for (let v = 16; v < 256; v += 28) {
+    ctx.beginPath(); ctx.moveTo(v, 0); ctx.lineTo(v + ((v % 3) - 1) * 9, 128); ctx.lineTo(v - 4, 256); ctx.stroke();
+    bctx.beginPath(); bctx.moveTo(v, 0); bctx.lineTo(v + ((v % 3) - 1) * 9, 128); bctx.lineTo(v - 4, 256); bctx.stroke();
   }
-  ctx.globalAlpha = 1;
-  const tex = new THREE.CanvasTexture(c);
-  tex.wrapS = THREE.RepeatWrapping; tex.wrapT = THREE.RepeatWrapping;
-  tex.repeat.set(2, 1);
-  return tex;
+  ctx.globalAlpha = bctx.globalAlpha = 1;
+  const map = new THREE.CanvasTexture(c), bump = new THREE.CanvasTexture(b);
+  [map, bump].forEach(t => { t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(2, 1); });
+  return { map, bump };
 }
 
-function createBarkTexture() {
-  const c = document.createElement('canvas'); c.width = 128; c.height = 128;
-  const ctx = c.getContext('2d');
-  ctx.fillStyle = '#5c3a21'; ctx.fillRect(0, 0, 128, 128);
-  ctx.strokeStyle = '#3b2210'; ctx.lineWidth = 3;
-  for (let x = 6; x < 128; x += 11) {
-    ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x + ((x % 3) - 1) * 4, 128); ctx.stroke();
-  }
-  return new THREE.CanvasTexture(c);
-}
-
-function createFlowingWaterTexture(cDeep, cLight) {
-  const c = document.createElement('canvas'); c.width = 256; c.height = 256;
-  const ctx = c.getContext('2d');
+function createWaterTextures(cDeep, cLight) {
+  const c = document.createElement('canvas'), b = document.createElement('canvas');
+  c.width = b.width = 256; c.height = b.height = 256;
+  const ctx = c.getContext('2d'), bctx = b.getContext('2d');
   ctx.fillStyle = cDeep; ctx.fillRect(0, 0, 256, 256);
-  for (let i = 0; i < 110; i++) {
-    const x = (i * 47) % 256;
-    const y = (i * 83) % 256;
-    ctx.fillStyle = i % 3 === 0 ? '#ffffff' : cLight;
-    ctx.globalAlpha = i % 3 === 0 ? 0.42 : 0.52;
-    ctx.beginPath(); ctx.ellipse(x, y, 26 + (i % 24), 4.5, 0, 0, Math.PI * 2); ctx.fill();
+  bctx.fillStyle = '#808080'; bctx.fillRect(0, 0, 256, 256);
+  for (let i = 0; i < 120; i++) {
+    const x = (i * 47) % 256, y = (i * 83) % 256, rx = 22 + (i % 24), ry = 4 + (i % 3);
+    ctx.fillStyle = i % 4 === 0 ? 'rgba(255,255,255,0.38)' : cLight;
+    ctx.globalAlpha = 0.45; ctx.beginPath(); ctx.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); ctx.fill();
+    bctx.fillStyle = i % 2 === 0 ? '#e5e5e5' : '#353535';
+    bctx.globalAlpha = 0.5; bctx.beginPath(); bctx.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); bctx.fill();
   }
-  ctx.globalAlpha = 1;
-  const tex = new THREE.CanvasTexture(c);
-  tex.wrapS = THREE.RepeatWrapping; tex.wrapT = THREE.RepeatWrapping;
-  tex.repeat.set(18, 3);
-  return tex;
+  ctx.globalAlpha = bctx.globalAlpha = 1;
+  const map = new THREE.CanvasTexture(c), bump = new THREE.CanvasTexture(b);
+  [map, bump].forEach(t => { t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(20, 4); });
+  return { map, bump };
 }
 
-function createWaterfallTexture(cStream) {
+function createWaterfallTex(cStream) {
   const c = document.createElement('canvas'); c.width = 128; c.height = 256;
   const ctx = c.getContext('2d');
   ctx.fillStyle = cStream; ctx.fillRect(0, 0, 128, 256);
-  for (let i = 0; i < 55; i++) {
-    const x = (i * 29) % 128;
-    const y = (i * 53) % 256;
-    ctx.fillStyle = i % 2 === 0 ? 'rgba(255,255,255,0.68)' : 'rgba(224,242,254,0.45)';
-    ctx.fillRect(x, y, 4 + (i % 5), 28 + (i % 34));
+  for (let i = 0; i < 70; i++) {
+    ctx.fillStyle = i % 2 === 0 ? 'rgba(255,255,255,0.75)' : 'rgba(224,242,254,0.45)';
+    ctx.fillRect((i * 29) % 128, (i * 53) % 256, 3 + (i % 5), 26 + (i % 36));
   }
   const tex = new THREE.CanvasTexture(c);
-  tex.wrapS = THREE.RepeatWrapping; tex.wrapT = THREE.RepeatWrapping;
-  tex.repeat.set(1, 2);
+  tex.wrapS = tex.wrapT = THREE.RepeatWrapping; tex.repeat.set(1, 2);
   return tex;
 }
 
-function createStripedClothTexture() {
+function createHairTexture() {
   const c = document.createElement('canvas'); c.width = 128; c.height = 128;
   const ctx = c.getContext('2d');
-  for (let y = 0; y < 128; y += 16) {
-    ctx.fillStyle = (y / 16) % 2 === 0 ? '#bae6fd' : '#111827';
-    ctx.fillRect(0, y, 128, 16);
+  ctx.fillStyle = '#5c4028'; ctx.fillRect(0, 0, 128, 128);
+  for (let i = 0; i < 400; i++) {
+    ctx.strokeStyle = i % 2 === 0 ? '#422c1a' : '#7a5638';
+    ctx.lineWidth = 1.5; const x = (i * 19) % 128, y = (i * 37) % 128;
+    ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + 2, y + 10); ctx.stroke();
   }
   return new THREE.CanvasTexture(c);
 }
 
-function createShirtFrontTexture() {
-  const c = document.createElement('canvas'); c.width = 256; c.height = 256;
-  const ctx = c.getContext('2d');
-  ctx.fillStyle = '#bae6fd';
-  ctx.fillRect(0, 0, 256, 256);
-  // Blue "F" / tail wing & cartoon airplane print matching the baby's shirt
-  ctx.fillStyle = '#2563eb';
-  ctx.fillRect(68, 46, 34, 64);
-  ctx.fillRect(88, 46, 32, 22);
-  ctx.fillStyle = '#334155';
-  ctx.beginPath(); ctx.ellipse(134, 138, 62, 26, -0.08, 0, Math.PI * 2); ctx.fill();
-  ctx.fillStyle = '#f97316';
-  ctx.beginPath(); ctx.ellipse(152, 144, 34, 14, -0.08, 0, Math.PI * 2); ctx.fill();
-  ctx.fillStyle = '#0284c7';
-  ctx.beginPath(); ctx.ellipse(122, 118, 28, 12, -0.2, 0, Math.PI * 2); ctx.fill();
-  ctx.fillStyle = '#111827';
-  ctx.beginPath(); ctx.arc(98, 166, 9, 0, Math.PI * 2); ctx.fill();
-  ctx.beginPath(); ctx.arc(166, 160, 9, 0, Math.PI * 2); ctx.fill();
+function createBarkTex() {
+  const c = document.createElement('canvas'); c.width = 128; c.height = 128;
+  const ctx = c.getContext('2d'); ctx.fillStyle = '#4e321c'; ctx.fillRect(0, 0, 128, 128);
+  ctx.strokeStyle = '#2d1a0b'; ctx.lineWidth = 3;
+  for (let x = 5; x < 128; x += 10) { ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x + ((x % 3) - 1) * 4, 128); ctx.stroke(); }
   return new THREE.CanvasTexture(c);
 }
 
-// ===================== HERO FACE TEXTURE & AUTO-SAVE =====================
+function createStripedClothTex() {
+  const c = document.createElement('canvas'); c.width = 128; c.height = 128;
+  const ctx = c.getContext('2d');
+  for (let y = 0; y < 128; y += 16) { ctx.fillStyle = (y / 16) % 2 === 0 ? '#bae6fd' : '#111827'; ctx.fillRect(0, y, 128, 16); }
+  return new THREE.CanvasTexture(c);
+}
+
+function createShirtFrontTex() {
+  const c = document.createElement('canvas'); c.width = 256; c.height = 256;
+  const ctx = c.getContext('2d'); ctx.fillStyle = '#bae6fd'; ctx.fillRect(0, 0, 256, 256);
+  ctx.fillStyle = '#2563eb'; ctx.fillRect(68, 46, 34, 64); ctx.fillRect(88, 46, 32, 22);
+  ctx.fillStyle = '#334155'; ctx.beginPath(); ctx.ellipse(134, 138, 62, 26, -0.08, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = '#f97316'; ctx.beginPath(); ctx.ellipse(152, 144, 34, 14, -0.08, 0, Math.PI * 2); ctx.fill();
+  ctx.fillStyle = '#0284c7'; ctx.beginPath(); ctx.ellipse(122, 118, 28, 12, -0.2, 0, Math.PI * 2); ctx.fill();
+  return new THREE.CanvasTexture(c);
+}
+
+// ===================== HERO FACE & PERSISTENCE =====================
 const facePreviewCanvas = document.getElementById('facePreviewCanvas');
 const facePreviewCtx = facePreviewCanvas.getContext('2d');
-const headTexCanvas = document.createElement('canvas');
-headTexCanvas.width = 256; headTexCanvas.height = 256;
+const headTexCanvas = document.createElement('canvas'); headTexCanvas.width = 256; headTexCanvas.height = 256;
 const headTexCtx = headTexCanvas.getContext('2d');
 const heroFaceTexture = new THREE.CanvasTexture(headTexCanvas);
-
 let uploadedPhoto = null;
 
 function drawHeroFace() {
   const zoom = parseFloat(document.getElementById('photoZoom').value) || 1.55;
   const offX = parseFloat(document.getElementById('photoOffsetX').value) || 0;
   const offY = parseFloat(document.getElementById('photoOffsetY').value) || 0.04;
-
   const drawTo = (ctx, size) => {
-    ctx.clearRect(0, 0, size, size);
-    ctx.fillStyle = '#f4c3aa';
-    ctx.fillRect(0, 0, size, size);
-
+    ctx.clearRect(0, 0, size, size); ctx.fillStyle = '#f4c3aa'; ctx.fillRect(0, 0, size, size);
     if (uploadedPhoto) {
-      const imgAspect = uploadedPhoto.width / uploadedPhoto.height;
-      let drawW = size * zoom;
-      let drawH = size * zoom;
-      if (imgAspect > 1) drawW = drawH * imgAspect;
-      else drawH = drawW / imgAspect;
-      const dx = (size - drawW) / 2 + offX * size * 0.5;
-      const dy = (size - drawH) / 2 + offY * size * 0.5;
-      ctx.drawImage(uploadedPhoto, dx, dy, drawW, drawH);
+      const asp = uploadedPhoto.width / uploadedPhoto.height;
+      let w = size * zoom, h = size * zoom;
+      if (asp > 1) w = h * asp; else h = w / asp;
+      ctx.drawImage(uploadedPhoto, (size - w) / 2 + offX * size * 0.5, (size - h) / 2 + offY * size * 0.5, w, h);
     } else {
-      // Default baby face matching Mohammed Basha (blue-grey eyes, rosy cheeks, happy smile)
-      ctx.fillStyle = '#f5c7af';
-      ctx.fillRect(0, 0, size, size);
-      ctx.fillStyle = 'rgba(244, 114, 182, 0.35)';
-      ctx.beginPath(); ctx.arc(size * 0.24, size * 0.60, size * 0.10, 0, Math.PI * 2); ctx.fill();
-      ctx.beginPath(); ctx.arc(size * 0.76, size * 0.60, size * 0.10, 0, Math.PI * 2); ctx.fill();
-      // Eyes
+      ctx.fillStyle = '#f5c7af'; ctx.fillRect(0, 0, size, size);
+      ctx.fillStyle = 'rgba(244,114,182,0.34)';
+      ctx.beginPath(); ctx.arc(size * 0.24, size * 0.6, size * 0.1, 0, Math.PI * 2); ctx.fill();
+      ctx.beginPath(); ctx.arc(size * 0.76, size * 0.6, size * 0.1, 0, Math.PI * 2); ctx.fill();
       [0.35, 0.65].forEach(ex => {
-        ctx.fillStyle = '#ffffff';
-        ctx.beginPath(); ctx.ellipse(size * ex, size * 0.47, size * 0.09, size * 0.07, 0, 0, Math.PI * 2); ctx.fill();
-        ctx.fillStyle = '#475569';
-        ctx.beginPath(); ctx.arc(size * ex, size * 0.47, size * 0.052, 0, Math.PI * 2); ctx.fill();
-        ctx.fillStyle = '#0f172a';
-        ctx.beginPath(); ctx.arc(size * ex, size * 0.47, size * 0.026, 0, Math.PI * 2); ctx.fill();
-        ctx.fillStyle = '#ffffff';
-        ctx.beginPath(); ctx.arc(size * (ex - 0.015), size * 0.45, size * 0.014, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.ellipse(size * ex, size * 0.47, size * 0.09, size * 0.07, 0, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#475569'; ctx.beginPath(); ctx.arc(size * ex, size * 0.47, size * 0.052, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#0f172a'; ctx.beginPath(); ctx.arc(size * ex, size * 0.47, size * 0.025, 0, Math.PI * 2); ctx.fill();
+        ctx.fillStyle = '#fff'; ctx.beginPath(); ctx.arc(size * (ex - 0.015), size * 0.45, size * 0.014, 0, Math.PI * 2); ctx.fill();
       });
-      // Cute nose & happy open baby smile
-      ctx.fillStyle = '#e2a386';
-      ctx.beginPath(); ctx.arc(size * 0.5, size * 0.58, size * 0.045, 0, Math.PI * 2); ctx.fill();
-      ctx.fillStyle = '#991b1b';
-      ctx.beginPath(); ctx.arc(size * 0.5, size * 0.69, size * 0.13, 0, Math.PI); ctx.fill();
+      ctx.fillStyle = '#e2a386'; ctx.beginPath(); ctx.arc(size * 0.5, size * 0.58, size * 0.045, 0, Math.PI * 2); ctx.fill();
+      ctx.fillStyle = '#991b1b'; ctx.beginPath(); ctx.arc(size * 0.5, size * 0.69, size * 0.13, 0, Math.PI); ctx.fill();
     }
   };
-
   drawTo(facePreviewCtx, facePreviewCanvas.width);
   drawTo(headTexCtx, headTexCanvas.width);
   heroFaceTexture.needsUpdate = true;
 }
 
-// Load saved photo from localStorage or optional 'face.jpg' in GitHub repo
 (function initSavedFace() {
   const saved = localStorage.getItem('mb_saved_photo');
-  const sz = localStorage.getItem('mb_zoom');
-  const sx = localStorage.getItem('mb_offx');
-  const sy = localStorage.getItem('mb_offy');
-  if (sz) document.getElementById('photoZoom').value = sz;
-  if (sx) document.getElementById('photoOffsetX').value = sx;
-  if (sy) document.getElementById('photoOffsetY').value = sy;
-
-  const applyImg = (src, showControls) => {
-    const img = new Image();
-    img.crossOrigin = 'anonymous';
-    img.onload = () => {
-      uploadedPhoto = img;
-      if (showControls) document.getElementById('photoAdjust').classList.remove('hidden');
-      drawHeroFace();
-    };
+  ['photoZoom', 'photoOffsetX', 'photoOffsetY'].forEach((id, i) => {
+    const v = localStorage.getItem(['mb_zoom', 'mb_offx', 'mb_offy'][i]);
+    if (v) document.getElementById(id).value = v;
+  });
+  const apply = (src, show) => {
+    const img = new Image(); img.crossOrigin = 'anonymous';
+    img.onload = () => { uploadedPhoto = img; if (show) document.getElementById('photoAdjust').classList.remove('hidden'); drawHeroFace(); };
     img.src = src;
   };
-
-  if (saved) applyImg(saved, true);
-  else applyImg('face.jpg', false);
+  if (saved) apply(saved, true); else apply('face.jpg', false);
 })();
 
 document.getElementById('realPhotoInput').addEventListener('change', e => {
-  const file = e.target.files[0];
-  if (!file) return;
+  const file = e.target.files[0]; if (!file) return;
   const img = new Image();
   img.onload = () => {
-    // Compress & save in localStorage so it persists forever on device
-    const c = document.createElement('canvas');
-    const maxS = 320;
-    const scale = Math.min(1, maxS / Math.max(img.width, img.height));
-    c.width = img.width * scale; c.height = img.height * scale;
-    c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
-    const dataUrl = c.toDataURL('image/jpeg', 0.88);
-    try { localStorage.setItem('mb_saved_photo', dataUrl); } catch (_) {}
-    uploadedPhoto = img;
-    document.getElementById('photoAdjust').classList.remove('hidden');
-    drawHeroFace();
+    const c = document.createElement('canvas'), s = Math.min(1, 320 / Math.max(img.width, img.height));
+    c.width = img.width * s; c.height = img.height * s; c.getContext('2d').drawImage(img, 0, 0, c.width, c.height);
+    try { localStorage.setItem('mb_saved_photo', c.toDataURL('image/jpeg', 0.88)); } catch (_) {}
+    uploadedPhoto = img; document.getElementById('photoAdjust').classList.remove('hidden'); drawHeroFace();
   };
   img.src = URL.createObjectURL(file);
 });
-
-['photoZoom', 'photoOffsetX', 'photoOffsetY'].forEach(id => {
+['photoZoom', 'photoOffsetX', 'photoOffsetY'].forEach((id, i) => {
   document.getElementById(id).addEventListener('input', () => {
-    localStorage.setItem('mb_zoom', document.getElementById('photoZoom').value);
-    localStorage.setItem('mb_offx', document.getElementById('photoOffsetX').value);
-    localStorage.setItem('mb_offy', document.getElementById('photoOffsetY').value);
+    localStorage.setItem(['mb_zoom', 'mb_offx', 'mb_offy'][i], document.getElementById(id).value);
     drawHeroFace();
   });
 });
 drawHeroFace();
 
-// ===================== 5 ALPINE & VALLEY LEVELS =====================
+// ===================== 5 LEVELS & RENDERER WITH REAL SHADOWS =====================
 const LEVELS = [
-  {
-    name: 'وادي الجبال والشلالات',
-    sky: 0x38bdf8, fog: 0xbae6fd,
-    grass: ['#15803d', '#22c55e', '#84cc16'],
-    cliff: ['#6b4c35', '#3e2723', '#8d6e63'],
-    water: ['#0284c7', '#7dd3fc'], waterfall: '#38bdf8',
-    length: 145, enemySpeed: 2.3, hasMoving: false
-  },
-  {
-    name: 'غابة الصنوبر الذهبية',
-    sky: 0x0ea5e9, fog: 0x99f6e4,
-    grass: ['#166534', '#16a34a', '#4ade80'],
-    cliff: ['#57534e', '#292524', '#78716c'],
-    water: ['#0369a1', '#38bdf8'], waterfall: '#7dd3fc',
-    length: 180, enemySpeed: 2.8, hasMoving: true
-  },
-  {
-    name: 'أنهار القمم الثلجية',
-    sky: 0x0284c7, fog: 0xa5f3fc,
-    grass: ['#047857', '#10b981', '#6ee7b7'],
-    cliff: ['#64748b', '#334155', '#94a3b8'],
-    water: ['#0d9488', '#5eead4'], waterfall: '#67e8f9',
-    length: 215, enemySpeed: 3.3, hasMoving: true
-  },
-  {
-    name: 'وادي الغروب الساحر',
-    sky: 0xf97316, fog: 0xfed7aa,
-    grass: ['#4d7c0f', '#65a30d', '#a3e635'],
-    cliff: ['#7c2d12', '#431407', '#9a3412'],
-    water: ['#1d4ed8', '#60a5fa'], waterfall: '#93c5fd',
-    length: 245, enemySpeed: 3.8, hasMoving: true
-  },
-  {
-    name: 'قمة محمد باشا الملكية',
-    sky: 0x4f46e5, fog: 0xc7d2fe,
-    grass: ['#15803d', '#22c55e', '#fde047'],
-    cliff: ['#475569', '#1e293b', '#cbd5e1'],
-    water: ['#0284c7', '#67e8f9'], waterfall: '#a5f3fc',
-    length: 280, enemySpeed: 4.3, hasMoving: true
-  }
+  { name: 'وادي الجبال والشلالات', sky: ['#0369a1', '#38bdf8', '#e0f2fe'], fog: 0xcbeafe, grass: ['#14532d', '#16a34a', '#65a30d'], cliff: ['#6b4c35', '#3e2723', '#8d6e63'], water: ['#0369a1', '#38bdf8'], waterfall: '#7dd3fc', length: 145, enemySpeed: 2.3, hasMoving: false },
+  { name: 'غابة الصنوبر الذهبية', sky: ['#0284c7', '#0ea5e9', '#ccfbf1'], fog: 0xbef5ea, grass: ['#14532d', '#15803d', '#4ade80'], cliff: ['#57534e', '#292524', '#78716c'], water: ['#0284c7', '#67e8f9'], waterfall: '#a5f3fc', length: 180, enemySpeed: 2.8, hasMoving: true },
+  { name: 'أنهار القمم الثلجية', sky: ['#1d4ed8', '#38bdf8', '#cffafe'], fog: 0xcffafe, grass: ['#065f46', '#10b981', '#6ee7b7'], cliff: ['#64748b', '#334155', '#94a3b8'], water: ['#0f766e', '#2dd4bf'], waterfall: '#99f6e4', length: 215, enemySpeed: 3.3, hasMoving: true },
+  { name: 'وادي الغروب الساحر', sky: ['#7c2d12', '#f97316', '#fde68a'], fog: 0xfed7aa, grass: ['#3f6212', '#65a30d', '#a3e635'], cliff: ['#7c2d12', '#431407', '#9a3412'], water: ['#1e40af', '#60a5fa'], waterfall: '#93c5fd', length: 245, enemySpeed: 3.8, hasMoving: true },
+  { name: 'قمة محمد باشا الملكية', sky: ['#312e81', '#4f46e5', '#c7d2fe'], fog: 0xc7d2fe, grass: ['#14532d', '#22c55e', '#facc15'], cliff: ['#475569', '#1e293b', '#cbd5e1'], water: ['#0284c7', '#67e8f9'], waterfall: '#a5f3fc', length: 280, enemySpeed: 4.3, hasMoving: true }
 ];
 
 let currentLevelIdx = 0;
-let unlockedLevel = parseInt(localStorage.getItem('mb_unlocked') || '0', 10);
-if (isNaN(unlockedLevel)) unlockedLevel = 0;
+let unlockedLevel = parseInt(localStorage.getItem('mb_unlocked') || '0', 10) || 0;
 
-// ===================== THREE.JS SCENE SETUP =====================
 const canvas = document.getElementById('gameCanvas');
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
 renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
 renderer.setSize(window.innerWidth, window.innerHeight);
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 1.1;
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 260);
+const camera = new THREE.PerspectiveCamera(48, window.innerWidth / window.innerHeight, 0.1, 280);
 
-const hemiLight = new THREE.HemisphereLight(0xffffff, 0x1e3a8a, 0.95);
+const hemiLight = new THREE.HemisphereLight(0xe0f2fe, 0x365314, 0.72);
 scene.add(hemiLight);
-const dirLight = new THREE.DirectionalLight(0xfffbeb, 0.95);
-dirLight.position.set(20, 35, 24);
+const dirLight = new THREE.DirectionalLight(0xfffbeb, 1.25);
+dirLight.position.set(16, 28, 18);
+dirLight.castShadow = true;
+dirLight.shadow.mapSize.set(1024, 1024);
+dirLight.shadow.camera.near = 2; dirLight.shadow.camera.far = 85;
+const sd = 24;
+dirLight.shadow.camera.left = -sd; dirLight.shadow.camera.right = sd;
+dirLight.shadow.camera.top = sd; dirLight.shadow.camera.bottom = -sd;
+dirLight.shadow.bias = -0.0008;
 scene.add(dirLight);
+scene.add(dirLight.target);
 
 let worldGroup = new THREE.Group();
 scene.add(worldGroup);
 
-const stripeTex = createStripedClothTexture();
-const shirtFrontTex = createShirtFrontTexture();
+const stripeTex = createStripedClothTex();
+const shirtFrontTex = createShirtFrontTex();
+const hairTex = createHairTexture();
 
-// ===================== HERO CHARACTER (MATCHING BABY PHOTO & OUTFIT) =====================
+// ===================== REALISTIC HERO, BEAST & ALPINE TERRAIN =====================
 function buildHero() {
   const group = new THREE.Group();
-  const stripeMat = new THREE.MeshLambertMaterial({ map: stripeTex });
-  const shirtMat = new THREE.MeshLambertMaterial({ color: 0xbae6fd });
-  const shirtFrontMat = new THREE.MeshLambertMaterial({ map: shirtFrontTex });
-  const cuffMat = new THREE.MeshLambertMaterial({ color: 0xa5b4fc });
-  const skinMat = new THREE.MeshLambertMaterial({ color: 0xf4c3aa });
-  const hairMat = new THREE.MeshLambertMaterial({ color: 0x6b4c35 });
+  const stripeMat = new THREE.MeshStandardMaterial({ map: stripeTex, roughness: 0.75 });
+  const shirtMat = new THREE.MeshStandardMaterial({ color: 0xbae6fd, roughness: 0.75 });
+  const shirtFrontMat = new THREE.MeshStandardMaterial({ map: shirtFrontTex, roughness: 0.7 });
+  const cuffMat = new THREE.MeshStandardMaterial({ color: 0xa5b4fc, roughness: 0.7 });
+  const skinMat = new THREE.MeshStandardMaterial({ color: 0xf4c3aa, roughness: 0.6 });
+  const hairMat = new THREE.MeshStandardMaterial({ map: hairTex, roughness: 0.85 });
 
-  // Torso (sky-blue shirt with airplane print on +Z / +X)
-  const torso = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.36, 0.41, 0.72, 14),
-    shirtMat
-  );
-  torso.position.y = 0.94;
-  group.add(torso);
+  const torso = new THREE.Mesh(new THREE.CylinderGeometry(0.36, 0.41, 0.72, 16), shirtMat);
+  torso.position.y = 0.94; torso.castShadow = true; group.add(torso);
+  const chestPatch = new THREE.Mesh(new THREE.PlaneGeometry(0.54, 0.54), shirtFrontMat);
+  chestPatch.position.set(0, 0.95, 0.385); group.add(chestPatch);
+  const collar = new THREE.Mesh(new THREE.TorusGeometry(0.24, 0.055, 8, 16), cuffMat);
+  collar.rotation.x = Math.PI / 2; collar.position.y = 1.31; group.add(collar);
+  const waistBand = new THREE.Mesh(new THREE.CylinderGeometry(0.415, 0.415, 0.11, 16), cuffMat);
+  waistBand.position.y = 0.59; group.add(waistBand);
 
-  const chestPatch = new THREE.Mesh(
-    new THREE.PlaneGeometry(0.56, 0.56),
-    shirtFrontMat
-  );
-  chestPatch.position.set(0, 0.95, 0.38);
-  group.add(chestPatch);
-
-  // Lavender collar & bottom waist cuff
-  const collar = new THREE.Mesh(
-    new THREE.TorusGeometry(0.24, 0.06, 8, 16),
-    cuffMat
-  );
-  collar.rotation.x = Math.PI / 2;
-  collar.position.y = 1.31;
-  group.add(collar);
-
-  const waistBand = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.415, 0.415, 0.11, 14),
-    cuffMat
-  );
-  waistBand.position.y = 0.59;
-  group.add(waistBand);
-
-  // Head Group (Realistic rounded baby head + short brown hair + face)
-  const headGroup = new THREE.Group();
-  headGroup.position.y = 1.72;
-
-  const headSphere = new THREE.Mesh(
-    new THREE.SphereGeometry(0.44, 20, 16),
-    skinMat
-  );
-  headSphere.scale.set(1.02, 1.04, 0.96);
-  headGroup.add(headSphere);
-
-  // Smooth curved front face patch displaying uploaded/default baby face
+  // Clean spherical head (zero z-fighting on forehead!)
+  const headGroup = new THREE.Group(); headGroup.position.y = 1.72;
+  const headSphere = new THREE.Mesh(new THREE.SphereGeometry(0.43, 24, 20), skinMat);
+  headSphere.castShadow = true; headGroup.add(headSphere);
   const facePatch = new THREE.Mesh(
-    new THREE.SphereGeometry(0.446, 20, 16, Math.PI * 0.25, Math.PI * 0.5, Math.PI * 0.24, Math.PI * 0.54),
-    new THREE.MeshLambertMaterial({ map: heroFaceTexture })
+    new THREE.SphereGeometry(0.434, 24, 20, Math.PI * 0.25, Math.PI * 0.5, Math.PI * 0.25, Math.PI * 0.54),
+    new THREE.MeshStandardMaterial({ map: heroFaceTexture, roughness: 0.58 })
   );
-  facePatch.scale.set(1.02, 1.04, 0.96);
   headGroup.add(facePatch);
-
-  // Short brown hair covering top & back of head
-  const hairTop = new THREE.Mesh(
-    new THREE.SphereGeometry(0.452, 18, 14, 0, Math.PI * 2, 0, Math.PI * 0.42),
-    hairMat
-  );
-  hairTop.rotation.x = -0.25;
-  headGroup.add(hairTop);
-
-  const hairBack = new THREE.Mesh(
-    new THREE.SphereGeometry(0.448, 18, 14, Math.PI * 0.92, Math.PI * 1.16, Math.PI * 0.2, Math.PI * 0.58),
-    hairMat
-  );
-  headGroup.add(hairBack);
-
-  // Cute ears
-  [-0.43, 0.43].forEach(ex => {
-    const ear = new THREE.Mesh(new THREE.SphereGeometry(0.09, 8, 8), skinMat);
-    ear.position.set(ex, -0.02, -0.02);
-    headGroup.add(ear);
+  const hairCap = new THREE.Mesh(new THREE.SphereGeometry(0.448, 22, 16, 0, Math.PI * 2, 0, Math.PI * 0.44), hairMat);
+  hairCap.rotation.x = -0.32; hairCap.castShadow = true; headGroup.add(hairCap);
+  [-0.42, 0.42].forEach(ex => {
+    const ear = new THREE.Mesh(new THREE.SphereGeometry(0.085, 10, 10), skinMat);
+    ear.position.set(ex, -0.02, -0.02); headGroup.add(ear);
   });
   group.add(headGroup);
 
-  // Striped Arms + lavender cuffs + little hands
-  const makeArm = (xSide) => {
-    const p = new THREE.Group();
-    p.position.set(xSide, 1.22, 0);
-    const sleeve = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.1, 0.44, 10), stripeMat);
-    sleeve.position.y = -0.2;
-    const cuff = new THREE.Mesh(new THREE.CylinderGeometry(0.105, 0.105, 0.08, 10), cuffMat);
-    cuff.position.y = -0.44;
-    const hand = new THREE.Mesh(new THREE.SphereGeometry(0.1, 8, 8), skinMat);
-    hand.position.y = -0.52;
-    p.add(sleeve, cuff, hand);
-    group.add(p);
-    return p;
+  const makeArm = x => {
+    const p = new THREE.Group(); p.position.set(x, 1.22, 0);
+    const s = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.095, 0.44, 12), stripeMat); s.position.y = -0.2; s.castShadow = true;
+    const c = new THREE.Mesh(new THREE.CylinderGeometry(0.105, 0.105, 0.08, 12), cuffMat); c.position.y = -0.44;
+    const h = new THREE.Mesh(new THREE.SphereGeometry(0.095, 10, 10), skinMat); h.position.y = -0.52;
+    p.add(s, c, h); group.add(p); return p;
   };
-
-  // Striped Pants + blue & white sneakers matching jumping photo
-  const makeLeg = (xSide) => {
-    const p = new THREE.Group();
-    p.position.set(xSide, 0.56, 0);
-    const pant = new THREE.Mesh(new THREE.CylinderGeometry(0.145, 0.12, 0.42, 10), stripeMat);
-    pant.position.y = -0.2;
-    const ankleCuff = new THREE.Mesh(new THREE.CylinderGeometry(0.125, 0.125, 0.07, 10), cuffMat);
-    ankleCuff.position.y = -0.41;
-    const shoeUpper = new THREE.Mesh(
-      new THREE.BoxGeometry(0.24, 0.15, 0.34),
-      new THREE.MeshLambertMaterial({ color: 0x2563eb })
-    );
-    shoeUpper.position.set(0, -0.49, 0.05);
-    const shoeSole = new THREE.Mesh(
-      new THREE.BoxGeometry(0.25, 0.06, 0.36),
-      new THREE.MeshLambertMaterial({ color: 0xffffff })
-    );
-    shoeSole.position.set(0, -0.56, 0.05);
-    p.add(pant, ankleCuff, shoeUpper, shoeSole);
-    group.add(p);
-    return p;
+  const makeLeg = x => {
+    const p = new THREE.Group(); p.position.set(x, 0.56, 0);
+    const l = new THREE.Mesh(new THREE.CylinderGeometry(0.145, 0.12, 0.42, 12), stripeMat); l.position.y = -0.2; l.castShadow = true;
+    const c = new THREE.Mesh(new THREE.CylinderGeometry(0.125, 0.125, 0.07, 12), cuffMat); c.position.y = -0.41;
+    const u = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.15, 0.34), new THREE.MeshStandardMaterial({ color: 0x2563eb, roughness: 0.5 }));
+    u.position.set(0, -0.49, 0.05); u.castShadow = true;
+    const so = new THREE.Mesh(new THREE.BoxGeometry(0.25, 0.06, 0.36), new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.4 }));
+    so.position.set(0, -0.56, 0.05);
+    p.add(l, c, u, so); group.add(p); return p;
   };
-
-  const armL = makeArm(-0.44);
-  const armR = makeArm(0.44);
-  const legL = makeLeg(-0.18);
-  const legR = makeLeg(0.18);
-
-  group.userData = { headGroup, armL, armR, legL, legR };
+  group.scale.setScalar(1.18);
+  group.userData = { headGroup, armL: makeArm(-0.44), armR: makeArm(0.44), legL: makeLeg(-0.18), legR: makeLeg(0.18) };
   return group;
 }
 
-// ===================== EVIL TOMATO BEAST & NATURE PROPS =====================
 function buildTomatoEnemy() {
   const g = new THREE.Group();
-  // Plump shiny red tomato body
   const body = new THREE.Mesh(
-    new THREE.SphereGeometry(0.55, 18, 14),
-    new THREE.MeshPhongMaterial({ color: 0xdc2626, shininess: 45 })
+    new THREE.SphereGeometry(0.56, 20, 16),
+    new THREE.MeshStandardMaterial({ color: 0xdc2626, roughness: 0.25, metalness: 0.05 })
   );
-  body.scale.set(1.12, 0.88, 1.08);
-  body.position.y = 0.58;
-  g.add(body);
-
-  // Leafy green calyx & beast horns
-  const leafMat = new THREE.MeshLambertMaterial({ color: 0x15803d });
+  body.scale.set(1.12, 0.88, 1.08); body.position.y = 0.58; body.castShadow = true; g.add(body);
+  const leafMat = new THREE.MeshStandardMaterial({ color: 0x15803d, roughness: 0.6 });
   for (let i = 0; i < 5; i++) {
-    const a = (i / 5) * Math.PI * 2;
-    const leaf = new THREE.Mesh(new THREE.ConeGeometry(0.14, 0.36, 5), leafMat);
+    const a = (i / 5) * Math.PI * 2, leaf = new THREE.Mesh(new THREE.ConeGeometry(0.14, 0.38, 6), leafMat);
     leaf.position.set(Math.cos(a) * 0.16, 1.06, Math.sin(a) * 0.16);
-    leaf.rotation.z = -Math.cos(a) * 0.7;
-    leaf.rotation.x = Math.sin(a) * 0.7;
-    g.add(leaf);
+    leaf.rotation.z = -Math.cos(a) * 0.7; leaf.rotation.x = Math.sin(a) * 0.7; g.add(leaf);
   }
-
-  // Fierce eyes & slanted eyebrows facing camera (+Z)
-  const eyeMat = new THREE.MeshBasicMaterial({ color: 0xfef08a });
-  const pupilMat = new THREE.MeshBasicMaterial({ color: 0x000000 });
-  const browMat = new THREE.MeshLambertMaterial({ color: 0x450a0a });
   [-0.2, 0.2].forEach((ex, idx) => {
-    const eye = new THREE.Mesh(new THREE.SphereGeometry(0.11, 8, 8), eyeMat);
+    const eye = new THREE.Mesh(new THREE.SphereGeometry(0.11, 10, 10), new THREE.MeshBasicMaterial({ color: 0xfef08a }));
     eye.position.set(ex, 0.68, 0.5);
-    const p = new THREE.Mesh(new THREE.SphereGeometry(0.05, 6, 6), pupilMat);
+    const p = new THREE.Mesh(new THREE.SphereGeometry(0.05, 8, 8), new THREE.MeshBasicMaterial({ color: 0x000000 }));
     p.position.set(ex, 0.67, 0.59);
-    const brow = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.06, 0.06), browMat);
-    brow.position.set(ex, 0.79, 0.54);
-    brow.rotation.z = idx === 0 ? -0.35 : 0.35;
+    const brow = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.06, 0.06), new THREE.MeshStandardMaterial({ color: 0x450a0a }));
+    brow.position.set(ex, 0.79, 0.54); brow.rotation.z = idx === 0 ? -0.35 : 0.35;
     g.add(eye, p, brow);
   });
-
-  // Scary mouth with sharp white fangs!
-  const mouth = new THREE.Mesh(
-    new THREE.BoxGeometry(0.46, 0.16, 0.08),
-    new THREE.MeshBasicMaterial({ color: 0x2b0404 })
-  );
-  mouth.position.set(0, 0.42, 0.53);
-  g.add(mouth);
-
-  const fangMat = new THREE.MeshBasicMaterial({ color: 0xffffff });
+  const mouth = new THREE.Mesh(new THREE.BoxGeometry(0.46, 0.16, 0.08), new THREE.MeshBasicMaterial({ color: 0x2b0404 }));
+  mouth.position.set(0, 0.42, 0.53); g.add(mouth);
   [-0.14, 0.14].forEach(fx => {
-    const fang = new THREE.Mesh(new THREE.ConeGeometry(0.055, 0.13, 4), fangMat);
-    fang.position.set(fx, 0.45, 0.56);
-    fang.rotation.x = Math.PI;
-    g.add(fang);
+    const fang = new THREE.Mesh(new THREE.ConeGeometry(0.055, 0.13, 4), new THREE.MeshBasicMaterial({ color: 0xffffff }));
+    fang.position.set(fx, 0.45, 0.56); fang.rotation.x = Math.PI; g.add(fang);
   });
-
-  // Little clawed beast feet
-  const footMat = new THREE.MeshLambertMaterial({ color: 0x7f1d1d });
   [-0.24, 0.24].forEach(lx => {
-    const foot = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.16, 0.3), footMat);
-    foot.position.set(lx, 0.08, 0.05);
-    g.add(foot);
-  });
-  return g;
-}
-
-function buildMonsterEnemy() {
-  const g = new THREE.Group();
-  const body = new THREE.Mesh(
-    new THREE.SphereGeometry(0.56, 14, 12),
-    new THREE.MeshLambertMaterial({ color: 0x7e22ce })
-  );
-  body.scale.set(1.0, 1.05, 1.0);
-  body.position.y = 0.6;
-  g.add(body);
-  const hornMat = new THREE.MeshLambertMaterial({ color: 0xfacc15 });
-  [-0.26, 0.26].forEach(hx => {
-    const h = new THREE.Mesh(new THREE.ConeGeometry(0.13, 0.38, 6), hornMat);
-    h.position.set(hx, 1.18, 0);
-    g.add(h);
-  });
-  [-0.2, 0.2].forEach(ex => {
-    const eye = new THREE.Mesh(new THREE.SphereGeometry(0.11, 8, 8), new THREE.MeshBasicMaterial({ color: 0xfef08a }));
-    eye.position.set(ex, 0.68, 0.5);
-    g.add(eye);
+    const foot = new THREE.Mesh(new THREE.BoxGeometry(0.2, 0.16, 0.3), new THREE.MeshStandardMaterial({ color: 0x7f1d1d }));
+    foot.position.set(lx, 0.08, 0.05); foot.castShadow = true; g.add(foot);
   });
   return g;
 }
 
 function buildPineTree(barkTex, leafColors) {
   const g = new THREE.Group();
-  const trunk = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.24, 0.4, 2.4, 8),
-    new THREE.MeshLambertMaterial({ map: barkTex })
-  );
-  trunk.position.y = 1.2;
-  g.add(trunk);
+  const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.38, 2.8, 10), new THREE.MeshStandardMaterial({ map: barkTex, roughness: 0.9 }));
+  trunk.position.y = 1.4; trunk.castShadow = true; g.add(trunk);
+  for (let i = 0; i < 5; i++) {
+    const r = 1.75 - i * 0.28, h = 1.6 - i * 0.12, y = 2.1 + i * 0.85;
+    const cone = new THREE.Mesh(new THREE.ConeGeometry(r, h, 12), new THREE.MeshStandardMaterial({ color: leafColors[i % leafColors.length], roughness: 0.85 }));
+    cone.position.y = y; cone.rotation.y = i * 0.7; cone.castShadow = true; cone.receiveShadow = true; g.add(cone);
+  }
+  return g;
+}
 
-  const layers = [
-    { y: 2.6, r: 1.65, h: 2.2, c: leafColors[0] },
-    { y: 3.9, r: 1.30, h: 2.0, c: leafColors[1] },
-    { y: 5.0, r: 0.90, h: 1.7, c: leafColors[2] || leafColors[1] }
+function buildAlpineMountainRange(len, rockCol, snowCol, valleyCol) {
+  const geo = new THREE.PlaneGeometry(len + 180, 56, 95, 16);
+  geo.rotateX(-Math.PI / 2);
+  const pos = geo.attributes.position;
+  const colors = [];
+  const cVal = new THREE.Color(valleyCol), cRock = new THREE.Color(rockCol), cSnow = new THREE.Color(snowCol);
+  for (let i = 0; i < pos.count; i++) {
+    const x = pos.getX(i), z = pos.getZ(i);
+    const backFactor = Math.max(0, (-z + 24) / 48);
+    const ridge = Math.abs(Math.sin(x * 0.055) * 14 + Math.cos(x * 0.13 + z * 0.08) * 7 + Math.sin(x * 0.27) * 3.5);
+    const y = ridge * backFactor * 1.15 - 4.2;
+    pos.setY(i, y);
+    const col = y > 10.5 ? cSnow.clone().lerp(cRock, Math.max(0, 1 - (y - 10.5) / 4)) : (y > 2.5 ? cRock : cVal.clone().lerp(cRock, Math.max(0, (y + 3) / 6)));
+    colors.push(col.r, col.g, col.b);
+  }
+  geo.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
+  geo.computeVertexNormals();
+  const mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.92, flatShading: true }));
+  mesh.position.set(len / 2, 0, -48);
+  return mesh;
+}
+
+function buildWaterfallFormation(x, cliffMat, wfTex) {
+  const g = new THREE.Group();
+  // Sculpted natural jagged cliff rocks instead of rectangular block
+  const clusters = [
+    { x: -3.2, y: 3, z: -0.6, sx: 2.8, sy: 6.5, sz: 2.4 },
+    { x: 3.2,  y: 3.5, z: -0.4, sx: 2.9, sy: 7.0, sz: 2.5 },
+    { x: 0.0,  y: 7.5, z: -1.6, sx: 5.4, sy: 4.5, sz: 2.8 },
+    { x: 0.0,  y: 1.5, z: -1.8, sx: 4.8, sy: 4.0, sz: 2.4 }
   ];
-  layers.forEach(l => {
-    const cone = new THREE.Mesh(
-      new THREE.ConeGeometry(l.r, l.h, 9),
-      new THREE.MeshLambertMaterial({ color: l.c })
-    );
-    cone.position.y = l.y;
-    g.add(cone);
+  clusters.forEach((cl, idx) => {
+    const rock = new THREE.Mesh(new THREE.DodecahedronGeometry(1.4, 1), cliffMat);
+    rock.scale.set(cl.sx, cl.sy, cl.sz);
+    rock.rotation.set(idx * 0.4, idx * 0.9, 0.2);
+    rock.position.set(cl.x, cl.y, cl.z);
+    g.add(rock);
   });
+  const wf = new THREE.Mesh(new THREE.PlaneGeometry(3.8, 13.5), new THREE.MeshBasicMaterial({ map: wfTex, transparent: true, opacity: 0.88 }));
+  wf.position.set(0, 3.6, 0.45); g.add(wf);
+  const foam = new THREE.Mesh(new THREE.CylinderGeometry(2.8, 3.4, 0.4, 16), new THREE.MeshBasicMaterial({ color: 0xf0f9ff, transparent: true, opacity: 0.82 }));
+  foam.position.set(0, -3.0, 1.4); g.add(foam);
+  g.position.set(x, 0, -17);
   return g;
 }
 
-function buildSnowMountain(x, z, scaleH, rockColor) {
+function buildGoalFlag(envTex) {
   const g = new THREE.Group();
-  const base = new THREE.Mesh(
-    new THREE.ConeGeometry(16, scaleH, 7),
-    new THREE.MeshLambertMaterial({ color: rockColor })
-  );
-  base.position.y = scaleH / 2 - 6;
-  const snow = new THREE.Mesh(
-    new THREE.ConeGeometry(6.4, scaleH * 0.4, 7),
-    new THREE.MeshLambertMaterial({ color: 0xf8fafc })
-  );
-  snow.position.y = scaleH * 0.8 - 6;
-  g.add(base, snow);
-  g.position.set(x, 0, z);
-  return g;
-}
-
-function buildGoalFlag() {
-  const g = new THREE.Group();
-  const base = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.9, 1.1, 0.45, 12),
-    new THREE.MeshLambertMaterial({ color: 0xfacc15 })
-  );
-  base.position.y = 0.22;
-  const pole = new THREE.Mesh(
-    new THREE.CylinderGeometry(0.11, 0.11, 5.4, 8),
-    new THREE.MeshLambertMaterial({ color: 0xfef08a })
-  );
-  pole.position.y = 2.9;
-  const flag = new THREE.Mesh(
-    new THREE.BoxGeometry(2.0, 1.2, 0.12),
-    new THREE.MeshLambertMaterial({ color: 0xfacc15, emissive: 0x854d0e })
-  );
-  flag.position.set(1.05, 4.9, 0);
-  const ball = new THREE.Mesh(
-    new THREE.SphereGeometry(0.28, 10, 10),
-    new THREE.MeshLambertMaterial({ color: 0xfde047, emissive: 0xa16207 })
-  );
-  ball.position.y = 5.65;
+  const goldMat = new THREE.MeshStandardMaterial({ color: 0xfacc15, metalness: 0.85, roughness: 0.2, envMap: envTex });
+  const base = new THREE.Mesh(new THREE.CylinderGeometry(0.9, 1.1, 0.45, 16), goldMat); base.position.y = 0.22;
+  const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 5.5, 10), goldMat); pole.position.y = 2.95; pole.castShadow = true;
+  const flag = new THREE.Mesh(new THREE.BoxGeometry(2.1, 1.25, 0.1), goldMat); flag.position.set(1.1, 5.0, 0);
+  const ball = new THREE.Mesh(new THREE.SphereGeometry(0.28, 12, 12), goldMat); ball.position.y = 5.8;
   g.add(base, pole, flag, ball);
   return g;
 }
 
-// ===================== LEVEL BUILDER & STATE =====================
-let platforms = [];
-let enemies = [];
-let coins = [];
-let heartsItems = [];
-let particles = [];
-let animatedWaterTex = null;
-let animatedWaterfallTex = null;
-let heroMesh = null;
-let goalX = 140;
-
-const player = {
-  x: 2, y: 2, vx: 0, vy: 0,
-  onGround: false, coyoteTimer: 0, jumpBuffer: 0,
-  facing: 1, coins: 0, hearts: 3, hurtTimer: 0,
-  lastSafeX: 2, lastSafeY: 2
-};
+// ===================== LEVEL BUILDER & GAME LOOP =====================
+let platforms = [], enemies = [], coins = [], heartsItems = [], particles = [];
+let animatedWaterMaps = [], animatedWaterfallTex = null, heroMesh = null, goalX = 140;
+const player = { x: 2, y: 2, vx: 0, vy: 0, onGround: false, coyoteTimer: 0, jumpBuffer: 0, facing: 1, coins: 0, hearts: 3, hurtTimer: 0, lastSafeX: 2, lastSafeY: 2 };
 let camMode = 0;
 
 function spawnBurst(x, y, z, color, count = 12) {
   for (let i = 0; i < count; i++) {
-    const m = new THREE.Mesh(
-      new THREE.SphereGeometry(0.14, 6, 6),
-      new THREE.MeshBasicMaterial({ color })
-    );
-    m.position.set(x, y, z);
-    worldGroup.add(m);
-    particles.push({
-      mesh: m,
-      vx: (Math.random() - 0.5) * 9,
-      vy: Math.random() * 7 + 2,
-      vz: (Math.random() - 0.5) * 6,
-      life: 0.65
-    });
+    const m = new THREE.Mesh(new THREE.SphereGeometry(0.14, 6, 6), new THREE.MeshBasicMaterial({ color }));
+    m.position.set(x, y, z); worldGroup.add(m);
+    particles.push({ mesh: m, vx: (Math.random() - 0.5) * 9, vy: Math.random() * 7 + 2, vz: (Math.random() - 0.5) * 6, life: 0.65 });
   }
 }
 
 function loadLevel(idx) {
-  currentLevelIdx = idx;
-  const cfg = LEVELS[idx];
-  scene.background = new THREE.Color(cfg.sky);
-  scene.fog = new THREE.Fog(cfg.fog, 32, 130);
-
+  currentLevelIdx = idx; const cfg = LEVELS[idx];
+  scene.fog = new THREE.FogExp2(cfg.fog, 0.0085);
   while (worldGroup.children.length > 0) worldGroup.remove(worldGroup.children[0]);
-  platforms = []; enemies = []; coins = []; heartsItems = []; particles = [];
+  platforms = []; enemies = []; coins = []; heartsItems = []; particles = []; animatedWaterMaps = [];
 
-  const grassTex = createMeadowGrassTexture(cfg.grass[0], cfg.grass[1], cfg.grass[2], true);
-  const cliffTex = createCliffRockTexture(cfg.cliff[0], cfg.cliff[1], cfg.cliff[2]);
-  const barkTex = createBarkTexture();
-  animatedWaterTex = createFlowingWaterTexture(cfg.water[0], cfg.water[1]);
-  animatedWaterfallTex = createWaterfallTexture(cfg.waterfall);
+  const skyTex = createSkyTexture(cfg.sky[0], cfg.sky[1], cfg.sky[2]);
+  const skyDome = new THREE.Mesh(new THREE.SphereGeometry(190, 24, 16), new THREE.MeshBasicMaterial({ map: skyTex, side: THREE.BackSide, fog: false }));
+  worldGroup.add(skyDome);
 
-  const grassMat = new THREE.MeshLambertMaterial({ map: grassTex });
-  const cliffMat = new THREE.MeshLambertMaterial({ map: cliffTex });
+  const grassT = createGrassTextures(cfg.grass[0], cfg.grass[1], cfg.grass[2]);
+  const rockT = createRockTextures(cfg.cliff[0], cfg.cliff[1], cfg.cliff[2]);
+  const waterT = createWaterTextures(cfg.water[0], cfg.water[1]);
+  animatedWaterMaps.push(waterT.map, waterT.bump);
+  animatedWaterfallTex = createWaterfallTex(cfg.waterfall);
+  const barkTex = createBarkTex();
 
-  // Sun glowing in sky
-  const sun = new THREE.Mesh(
-    new THREE.SphereGeometry(4.5, 16, 16),
-    new THREE.MeshBasicMaterial({ color: 0xfef9c3 })
-  );
-  sun.position.set(cfg.length * 0.4, 30, -65);
-  worldGroup.add(sun);
+  const grassMat = new THREE.MeshStandardMaterial({ map: grassT.map, bumpMap: grassT.bump, bumpScale: 0.18, roughness: 0.88 });
+  const cliffMat = new THREE.MeshStandardMaterial({ map: rockT.map, bumpMap: rockT.bump, bumpScale: 0.45, roughness: 0.92 });
+  const coinMat = new THREE.MeshStandardMaterial({ color: 0xfacc15, metalness: 0.88, roughness: 0.18, envMap: skyTex });
 
-  // Flowing River along valley bottom + river boulders
+  // Flowing specular valley river
   const river = new THREE.Mesh(
-    new THREE.PlaneGeometry(cfg.length + 140, 56),
-    new THREE.MeshLambertMaterial({ map: animatedWaterTex, transparent: true, opacity: 0.94 })
+    new THREE.PlaneGeometry(cfg.length + 180, 68),
+    new THREE.MeshStandardMaterial({ map: waterT.map, bumpMap: waterT.bump, bumpScale: 0.22, roughness: 0.14, metalness: 0.25, envMap: skyTex, transparent: true, opacity: 0.94 })
   );
-  river.rotation.x = -Math.PI / 2;
-  river.position.set(cfg.length / 2, -3.2, -10);
+  river.rotation.x = -Math.PI / 2; river.position.set(cfg.length / 2, -3.2, -12); river.receiveShadow = true;
   worldGroup.add(river);
 
-  // Alpine Snow Mountains, Multi-Tier Waterfalls, Pine Forests & Clouds
-  for (let bx = -20; bx < cfg.length + 70; bx += 26) {
-    worldGroup.add(buildSnowMountain(bx, -48 - (bx % 12), 28 + (bx * 5) % 14, 0x475569));
+  // Realistic Alpine Mountain Range
+  worldGroup.add(buildAlpineMountainRange(cfg.length, 0x64748b, 0xf8fafc, cfg.grass[0]));
 
-    const hillH = 10 + (bx * 7) % 8;
-    const hill = new THREE.Mesh(
-      new THREE.ConeGeometry(13, hillH, 8),
-      new THREE.MeshLambertMaterial({ color: cfg.grass[0] })
-    );
-    hill.position.set(bx + 10, hillH / 2 - 4, -22 - (bx % 5));
-    worldGroup.add(hill);
-
-    // Waterfall cliffs & foaming splash pools
-    if (bx % 52 === 6 || bx % 52 === 32) {
-      const wfCliff = new THREE.Mesh(new THREE.BoxGeometry(8, 16, 4.5), cliffMat);
-      wfCliff.position.set(bx + 6, 4.2, -15);
-      worldGroup.add(wfCliff);
-
-      const wf = new THREE.Mesh(
-        new THREE.PlaneGeometry(4.0, 16),
-        new THREE.MeshBasicMaterial({ map: animatedWaterfallTex, transparent: true, opacity: 0.92 })
-      );
-      wf.position.set(bx + 6, 4.2, -12.6);
-      worldGroup.add(wf);
-
-      const foam = new THREE.Mesh(
-        new THREE.CylinderGeometry(2.6, 3.0, 0.35, 12),
-        new THREE.MeshBasicMaterial({ color: 0xe0f2fe, transparent: true, opacity: 0.78 })
-      );
-      foam.position.set(bx + 6, -3.0, -11.5);
-      worldGroup.add(foam);
-    }
-
-    // Distant pine trees on valley slopes
-    const bgPine = buildPineTree(barkTex, cfg.grass);
-    bgPine.position.set(bx + 2, -2.5, -9 - (bx % 5));
-    bgPine.scale.setScalar(1.1);
-    worldGroup.add(bgPine);
-
-    // River rocks
-    const rock = new THREE.Mesh(
-      new THREE.DodecahedronGeometry(1.1, 0),
-      cliffMat
-    );
-    rock.position.set(bx + 8, -3.1, -6 - (bx % 4));
-    worldGroup.add(rock);
-
-    const cloud = new THREE.Mesh(
-      new THREE.SphereGeometry(2.4, 8, 8),
-      new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.88 })
-    );
-    cloud.scale.set(2.4, 0.75, 1);
-    cloud.position.set(bx + 4, 15 + (bx % 5), -24);
-    worldGroup.add(cloud);
+  for (let bx = -10; bx < cfg.length + 60; bx += 26) {
+    if (bx % 52 === 16) worldGroup.add(buildWaterfallFormation(bx, cliffMat, animatedWaterfallTex));
+    const pine = buildPineTree(barkTex, cfg.grass);
+    pine.position.set(bx, -2.6, -9 - (bx % 5)); pine.scale.setScalar(1.25); worldGroup.add(pine);
+    const boulder = new THREE.Mesh(new THREE.DodecahedronGeometry(1.3, 1), cliffMat);
+    boulder.scale.set(1.4, 0.75, 1.1); boulder.position.set(bx + 9, -3.1, -6 - (bx % 4)); worldGroup.add(boulder);
   }
 
-  function addPlatform(x, y, w, h = 6, depth = 4.4, movingRange = 0, speed = 1.6) {
+  function addPlatform(x, y, w, h = 6, depth = 4.6, movingRange = 0, speed = 1.6) {
     const pg = new THREE.Group();
-    const top = new THREE.Mesh(new THREE.BoxGeometry(w + 0.3, 0.72, depth + 0.3), grassMat);
-    top.position.y = -0.34;
+    const top = new THREE.Mesh(new THREE.BoxGeometry(w + 0.4, 0.72, depth + 0.4), grassMat);
+    top.position.y = -0.34; top.receiveShadow = true;
     const body = new THREE.Mesh(new THREE.BoxGeometry(w - 0.1, h, depth - 0.15), cliffMat);
-    body.position.y = -0.7 - h / 2;
+    body.position.y = -0.7 - h / 2; body.receiveShadow = true;
     pg.add(top, body);
-    pg.position.set(x, y, 0);
-    worldGroup.add(pg);
-    platforms.push({
-      mesh: pg, x, y, baseX: x, w, topY: y,
-      movingRange, speed, phase: x * 0.3
-    });
+    // Natural jutting boulders along cliff edges + 3D grass tufts on top
+    const bCount = Math.max(2, Math.floor(w / 3.5));
+    for (let i = 0; i < bCount; i++) {
+      const bx = -w * 0.42 + (i / Math.max(1, bCount - 1)) * w * 0.84;
+      const b = new THREE.Mesh(new THREE.DodecahedronGeometry(0.95, 1), cliffMat);
+      b.scale.set(1.1, 1.4, 0.85); b.rotation.set(i, i * 0.7, 0.2);
+      b.position.set(bx, -1.5 - (i % 2) * 1.1, depth * 0.42); pg.add(b);
+      const tuft = new THREE.Mesh(new THREE.ConeGeometry(0.22, 0.45, 5), grassMat);
+      tuft.position.set(bx + 0.3, 0.2, depth * 0.38); pg.add(tuft);
+    }
+    pg.position.set(x, y, 0); worldGroup.add(pg);
+    platforms.push({ mesh: pg, x, y, baseX: x, w, topY: y, movingRange, speed, phase: x * 0.3 });
   }
 
   function addCoin(x, y) {
-    const coin = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.42, 0.42, 0.14, 16),
-      new THREE.MeshLambertMaterial({ color: 0xfacc15, emissive: 0xa16207 })
-    );
-    coin.rotation.x = Math.PI / 2;
-    coin.position.set(x, y, 0);
-    worldGroup.add(coin);
-    coins.push({ mesh: coin, x, y, collected: false });
+    const g = new THREE.Group();
+    const disc = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.42, 0.11, 20), coinMat);
+    disc.rotation.x = Math.PI / 2;
+    const rim = new THREE.Mesh(new THREE.TorusGeometry(0.38, 0.06, 8, 20), coinMat);
+    g.add(disc, rim); g.position.set(x, y, 0); worldGroup.add(g);
+    coins.push({ mesh: g, x, y, collected: false });
   }
 
   function addHeartPickup(x, y) {
-    const h = new THREE.Mesh(
-      new THREE.SphereGeometry(0.38, 10, 10),
-      new THREE.MeshLambertMaterial({ color: 0xf43f5e, emissive: 0x881337 })
-    );
-    h.position.set(x, y, 0);
-    worldGroup.add(h);
+    const h = new THREE.Mesh(new THREE.SphereGeometry(0.38, 12, 12), new THREE.MeshStandardMaterial({ color: 0xf43f5e, emissive: 0x881337, roughness: 0.25 }));
+    h.position.set(x, y, 0); worldGroup.add(h);
     heartsItems.push({ mesh: h, x, y, collected: false });
   }
 
-  function addEnemy(type, x, y, minX, maxX) {
-    const mesh = type === 'monster' ? buildMonsterEnemy() : buildTomatoEnemy();
-    mesh.position.set(x, y, 0);
-    worldGroup.add(mesh);
-    enemies.push({
-      mesh, type, x, y, baseY: y,
-      minX, maxX,
-      vx: (type === 'monster' ? cfg.enemySpeed * 1.15 : cfg.enemySpeed) * (Math.random() > 0.5 ? 1 : -1),
-      alive: true, hopPhase: Math.random() * 6
-    });
+  function addEnemy(x, y, minX, maxX, spd) {
+    const mesh = buildTomatoEnemy(); mesh.position.set(x, y, 0); worldGroup.add(mesh);
+    enemies.push({ mesh, x, y, baseY: y, minX, maxX, vx: spd * (Math.random() > 0.5 ? 1 : -1), alive: true, hopPhase: Math.random() * 6 });
   }
 
   addPlatform(4, 0, 14, 6, 4.8);
   for (let cx = 4; cx <= 8; cx += 2) addCoin(cx, 1.3);
-
-  let cursor = 13.5;
-  let segIndex = 0;
+  let cursor = 13.5, segIndex = 0;
   while (cursor < cfg.length - 18) {
-    const gap = 2.8 + ((segIndex * 17) % 24) / 10;
-    cursor += gap;
+    cursor += 2.8 + ((segIndex * 17) % 24) / 10;
     const isMoving = cfg.hasMoving && (segIndex % 4 === 2);
     const w = isMoving ? 5.4 : 9 + ((segIndex * 13) % 9);
     const y = isMoving ? 1.5 + (segIndex % 2) * 1.2 : ((segIndex % 3) * 1.1);
     const centerX = cursor + w / 2;
-
-    addPlatform(centerX, y, w, 6, isMoving ? 3.8 : 4.5, isMoving ? 2.6 : 0);
-
+    addPlatform(centerX, y, w, 6, isMoving ? 3.8 : 4.6, isMoving ? 2.6 : 0);
     const cCount = Math.min(4, Math.floor(w / 2.5));
-    for (let i = 0; i < cCount; i++) {
-      const cx = cursor + 1.8 + i * 2.1;
-      const arcY = y + 1.25 + Math.sin((i / Math.max(1, cCount - 1)) * Math.PI) * 1.1;
-      addCoin(cx, arcY);
-    }
-
+    for (let i = 0; i < cCount; i++) addCoin(cursor + 1.8 + i * 2.1, y + 1.25 + Math.sin((i / Math.max(1, cCount - 1)) * Math.PI) * 1.1);
     if (!isMoving && segIndex % 3 === 1 && w >= 10) {
       addPlatform(centerX, y + 2.7, 4.5, 1.1, 3.2);
-      addCoin(centerX - 1, y + 3.9);
-      addCoin(centerX + 1, y + 3.9);
+      addCoin(centerX - 1, y + 3.9); addCoin(centerX + 1, y + 3.9);
       if (segIndex % 6 === 1) addHeartPickup(centerX, y + 4.1);
     }
-
     if (!isMoving) {
       const pine = buildPineTree(barkTex, cfg.grass);
-      pine.position.set(centerX - w * 0.25, y, -2.8);
-      pine.scale.setScalar(0.85 + (segIndex % 3) * 0.15);
-      worldGroup.add(pine);
+      pine.position.set(centerX - w * 0.25, y, -2.7); pine.scale.setScalar(0.85 + (segIndex % 3) * 0.15); worldGroup.add(pine);
+      if (w >= 9) {
+        addEnemy(centerX, y, cursor + 1.1, cursor + w - 1.1, cfg.enemySpeed);
+        if (idx >= 3 && w >= 14) addEnemy(cursor + 3, y, cursor + 1.1, cursor + w - 1.1, cfg.enemySpeed * 1.15);
+      }
     }
-
-    if (!isMoving && w >= 9) {
-      const eType = (idx >= 2 && segIndex % 3 === 2) ? 'monster' : 'tomato';
-      addEnemy(eType, centerX, y, cursor + 1.1, cursor + w - 1.1);
-      if (idx >= 3 && w >= 14) addEnemy('tomato', cursor + 3, y, cursor + 1.1, cursor + w - 1.1);
-    }
-
-    cursor += w;
-    segIndex++;
+    cursor += w; segIndex++;
   }
 
-  // Final Victory Cliff & Golden Flag
-  const endW = 16;
-  const endCenter = cursor + 3.2 + endW / 2;
-  addPlatform(endCenter, 0.6, endW, 7, 5);
+  const endCenter = cursor + 11.2;
+  addPlatform(endCenter, 0.6, 16, 7, 5);
   goalX = endCenter + 2.5;
-  const flag = buildGoalFlag();
-  flag.position.set(goalX, 0.6, 0);
-  worldGroup.add(flag);
+  const flag = buildGoalFlag(skyTex); flag.position.set(goalX, 0.6, 0); worldGroup.add(flag);
+  const endPine = buildPineTree(barkTex, cfg.grass); endPine.position.set(endCenter - 4, 0.6, -2.5); worldGroup.add(endPine);
 
-  const endPine = buildPineTree(barkTex, cfg.grass);
-  endPine.position.set(endCenter - 4, 0.6, -2.5);
-  worldGroup.add(endPine);
-
-  heroMesh = buildHero();
-  worldGroup.add(heroMesh);
-
-  player.x = 2; player.y = 1.5; player.vx = 0; player.vy = 0;
-  player.onGround = false; player.coyoteTimer = 0; player.jumpBuffer = 0;
-  player.facing = 1; player.hearts = 3; player.hurtTimer = 0;
-  player.lastSafeX = 2; player.lastSafeY = 1.5;
-
+  heroMesh = buildHero(); worldGroup.add(heroMesh);
+  Object.assign(player, { x: 2, y: 1.5, vx: 0, vy: 0, onGround: false, coyoteTimer: 0, jumpBuffer: 0, facing: 1, hearts: 3, hurtTimer: 0, lastSafeX: 2, lastSafeY: 1.5 });
   updateHUD();
 }
 
@@ -1204,34 +848,24 @@ function updateHUD() {
   document.getElementById('coinCount').textContent = player.coins;
   document.getElementById('heartsCount').textContent = player.hearts;
   document.getElementById('levelBadge').textContent = `المرحلة ${currentLevelIdx + 1}`;
-  const pct = Math.max(0, Math.min(100, (player.x / Math.max(1, goalX)) * 100));
-  document.getElementById('progressFill').style.width = `${pct.toFixed(0)}%`;
+  document.getElementById('progressFill').style.width = `${Math.max(0, Math.min(100, (player.x / Math.max(1, goalX)) * 100)).toFixed(0)}%`;
 }
 
-// ===================== INPUT CONTROLS =====================
+// ===================== INPUT, UI & MAIN LOOP =====================
 const keys = { left: false, right: false, jump: false };
-
 function bindHoldBtn(id, prop) {
   const el = document.getElementById(id);
   const down = e => { e.preventDefault(); SoundEngine.init(); keys[prop] = true; el.classList.add('active'); if (prop === 'jump') player.jumpBuffer = 0.14; };
   const up = e => { e.preventDefault(); keys[prop] = false; el.classList.remove('active'); };
-  el.addEventListener('pointerdown', down);
-  el.addEventListener('pointerup', up);
-  el.addEventListener('pointercancel', up);
-  el.addEventListener('pointerleave', up);
+  el.addEventListener('pointerdown', down); el.addEventListener('pointerup', up);
+  el.addEventListener('pointercancel', up); el.addEventListener('pointerleave', up);
 }
-bindHoldBtn('btnLeft', 'left');
-bindHoldBtn('btnRight', 'right');
-bindHoldBtn('btnJump', 'jump');
+bindHoldBtn('btnLeft', 'left'); bindHoldBtn('btnRight', 'right'); bindHoldBtn('btnJump', 'jump');
 document.getElementById('btnCam').addEventListener('click', () => { camMode = (camMode + 1) % 3; });
-
 window.addEventListener('keydown', e => {
   if (e.code === 'ArrowLeft' || e.code === 'KeyA') keys.left = true;
   if (e.code === 'ArrowRight' || e.code === 'KeyD') keys.right = true;
-  if (e.code === 'ArrowUp' || e.code === 'Space' || e.code === 'KeyW') {
-    if (!keys.jump) player.jumpBuffer = 0.14;
-    keys.jump = true;
-  }
+  if (e.code === 'ArrowUp' || e.code === 'Space' || e.code === 'KeyW') { if (!keys.jump) player.jumpBuffer = 0.14; keys.jump = true; }
 });
 window.addEventListener('keyup', e => {
   if (e.code === 'ArrowLeft' || e.code === 'KeyA') keys.left = false;
@@ -1239,300 +873,166 @@ window.addEventListener('keyup', e => {
   if (e.code === 'ArrowUp' || e.code === 'Space' || e.code === 'KeyW') keys.jump = false;
 });
 
-// ===================== GAME FLOW & UI =====================
 function startGameLevel(idx) {
-  SoundEngine.init();
-  player.coins = 0;
-  loadLevel(idx);
-  gameState = 'playing';
-  document.getElementById('startOverlay').classList.add('hidden');
-  document.getElementById('levelsOverlay').classList.add('hidden');
-  document.getElementById('resultOverlay').classList.add('hidden');
-  document.getElementById('hud').classList.remove('hidden');
-  document.getElementById('controls').classList.remove('hidden');
+  SoundEngine.init(); player.coins = 0; loadLevel(idx); gameState = 'playing';
+  ['startOverlay', 'levelsOverlay', 'resultOverlay'].forEach(id => document.getElementById(id).classList.add('hidden'));
+  ['hud', 'controls'].forEach(id => document.getElementById(id).classList.remove('hidden'));
   checkOrientationBanner();
 }
-
 function showResult(win) {
-  gameState = 'result';
-  document.getElementById('rotateBanner').style.display = 'none';
-  const ov = document.getElementById('resultOverlay');
-  const emoji = document.getElementById('resultEmoji');
-  const title = document.getElementById('resultTitle');
-  const msg = document.getElementById('resultMsg');
-  const actBtn = document.getElementById('btnResultAction');
-
+  gameState = 'result'; document.getElementById('rotateBanner').style.display = 'none';
+  const ov = document.getElementById('resultOverlay'), actBtn = document.getElementById('btnResultAction');
   if (win) {
     SoundEngine.babyLaugh();
-    if (currentLevelIdx + 1 > unlockedLevel && currentLevelIdx + 1 < LEVELS.length) {
-      unlockedLevel = currentLevelIdx + 1;
-      localStorage.setItem('mb_unlocked', String(unlockedLevel));
-    }
-    emoji.textContent = currentLevelIdx === LEVELS.length - 1 ? '🏆👑' : '🎉😂';
-    title.textContent = currentLevelIdx === LEVELS.length - 1
-      ? 'مبروك! محمد باشا بطل الممالك الخمس!'
-      : 'أحسنت يا محمد باشا!';
-    msg.textContent = `أنهيت «${LEVELS[currentLevelIdx].name}» وجمعت ${player.coins} قطعة ذهبية 🪙!`;
-    if (currentLevelIdx < LEVELS.length - 1) {
-      actBtn.textContent = 'المرحلة التالية ➡️';
-      actBtn.onclick = () => startGameLevel(currentLevelIdx + 1);
-    } else {
-      actBtn.textContent = '🏠 القائمة الرئيسية';
-      actBtn.onclick = () => {
-        ov.classList.add('hidden');
-        document.getElementById('hud').classList.add('hidden');
-        document.getElementById('controls').classList.add('hidden');
-        document.getElementById('startOverlay').classList.remove('hidden');
-      };
-    }
+    if (currentLevelIdx + 1 > unlockedLevel && currentLevelIdx + 1 < LEVELS.length) { unlockedLevel = currentLevelIdx + 1; localStorage.setItem('mb_unlocked', String(unlockedLevel)); }
+    document.getElementById('resultEmoji').textContent = currentLevelIdx === LEVELS.length - 1 ? '🏆👑' : '🎉😂';
+    document.getElementById('resultTitle').textContent = currentLevelIdx === LEVELS.length - 1 ? 'مبروك! محمد باشا بطل الممالك الخمس!' : 'أحسنت يا محمد باشا!';
+    document.getElementById('resultMsg').textContent = `أنهيت «${LEVELS[currentLevelIdx].name}» وجمعت ${player.coins} قطعة ذهبية 🪙!`;
+    if (currentLevelIdx < LEVELS.length - 1) { actBtn.textContent = 'المرحلة التالية ➡️'; actBtn.onclick = () => startGameLevel(currentLevelIdx + 1); }
+    else { actBtn.textContent = '🏠 القائمة الرئيسية'; actBtn.onclick = () => { ov.classList.add('hidden'); document.getElementById('hud').classList.add('hidden'); document.getElementById('controls').classList.add('hidden'); document.getElementById('startOverlay').classList.remove('hidden'); }; }
   } else {
     SoundEngine.babyCry();
-    emoji.textContent = '😢💔';
-    title.textContent = 'أوه لا! سقط محمد باشا!';
-    msg.textContent = 'لا بأس يا بطل، حاول مرة أخرى وادعس على وحوش الطماطم!';
-    actBtn.textContent = '🔄 حاول مجدداً';
-    actBtn.onclick = () => startGameLevel(currentLevelIdx);
+    document.getElementById('resultEmoji').textContent = '😢💔';
+    document.getElementById('resultTitle').textContent = 'أوه لا! سقط محمد باشا!';
+    document.getElementById('resultMsg').textContent = 'لا بأس يا بطل، حاول مرة أخرى وادعس على وحوش الطماطم!';
+    actBtn.textContent = '🔄 حاول مجدداً'; actBtn.onclick = () => startGameLevel(currentLevelIdx);
   }
   ov.classList.remove('hidden');
 }
-
 function populateLevelsMenu() {
-  const list = document.getElementById('levelList');
-  list.innerHTML = '';
+  const list = document.getElementById('levelList'); list.innerHTML = '';
   LEVELS.forEach((lvl, i) => {
-    const locked = i > unlockedLevel;
-    const btn = document.createElement('button');
+    const locked = i > unlockedLevel, btn = document.createElement('button');
     btn.className = 'level-item' + (locked ? ' locked' : '');
     btn.innerHTML = `<span>${locked ? '🔒' : '🟢'} المرحلة ${i + 1}: ${lvl.name}</span><span class="badge">${locked ? 'مقفلة' : 'العب'}</span>`;
     if (!locked) btn.onclick = () => { enterLandscapeFullscreen(); startGameLevel(i); };
     list.appendChild(btn);
   });
 }
-
-document.getElementById('btnStartGame').addEventListener('click', () => {
-  enterLandscapeFullscreen();
-  startGameLevel(currentLevelIdx);
-});
-document.getElementById('btnOpenLevels').addEventListener('click', () => {
-  populateLevelsMenu();
-  document.getElementById('levelsOverlay').classList.remove('hidden');
-});
-document.getElementById('btnLevels').addEventListener('click', () => {
-  gameState = 'paused';
-  populateLevelsMenu();
-  document.getElementById('levelsOverlay').classList.remove('hidden');
-});
-document.getElementById('btnCloseLevels').addEventListener('click', () => {
-  document.getElementById('levelsOverlay').classList.add('hidden');
-  if (!document.getElementById('hud').classList.contains('hidden')) gameState = 'playing';
-});
+document.getElementById('btnStartGame').addEventListener('click', () => { enterLandscapeFullscreen(); startGameLevel(currentLevelIdx); });
+document.getElementById('btnOpenLevels').addEventListener('click', () => { populateLevelsMenu(); document.getElementById('levelsOverlay').classList.remove('hidden'); });
+document.getElementById('btnLevels').addEventListener('click', () => { gameState = 'paused'; populateLevelsMenu(); document.getElementById('levelsOverlay').classList.remove('hidden'); });
+document.getElementById('btnCloseLevels').addEventListener('click', () => { document.getElementById('levelsOverlay').classList.add('hidden'); if (!document.getElementById('hud').classList.contains('hidden')) gameState = 'playing'; });
 document.getElementById('btnRestart').addEventListener('click', () => startGameLevel(currentLevelIdx));
 document.getElementById('btnResultReplay').addEventListener('click', () => startGameLevel(currentLevelIdx));
 document.getElementById('btnFullscreen').addEventListener('click', enterLandscapeFullscreen);
-document.getElementById('btnMute').addEventListener('click', e => {
-  SoundEngine.muted = !SoundEngine.muted;
-  e.currentTarget.textContent = SoundEngine.muted ? '🔇' : '🔊';
-});
-
-window.addEventListener('resize', () => {
-  camera.aspect = window.innerWidth / window.innerHeight;
-  camera.updateProjectionMatrix();
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  checkOrientationBanner();
-});
+document.getElementById('btnMute').addEventListener('click', e => { SoundEngine.muted = !SoundEngine.muted; e.currentTarget.textContent = SoundEngine.muted ? '🔇' : '🔊'; });
+window.addEventListener('resize', () => { camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); checkOrientationBanner(); });
 window.addEventListener('orientationchange', checkOrientationBanner);
 
-// ===================== MAIN GAME LOOP =====================
-let lastTime = performance.now();
-let runCycle = 0;
-
+let lastTime = performance.now(), runCycle = 0;
 function damagePlayer(knockDir = -1) {
   if (player.hurtTimer > 0) return;
-  player.hearts--;
-  player.hurtTimer = 1.4;
-  player.vy = 8.5;
-  player.vx = knockDir * 5.5;
-  SoundEngine.hurt();
-  updateHUD();
-  if (player.hearts <= 0) showResult(false);
+  player.hearts--; player.hurtTimer = 1.4; player.vy = 8.5; player.vx = knockDir * 5.5;
+  SoundEngine.hurt(); updateHUD(); if (player.hearts <= 0) showResult(false);
 }
 
 function animate(now) {
   requestAnimationFrame(animate);
-  const dt = Math.min(0.045, (now - lastTime) / 1000);
-  lastTime = now;
-
-  if (animatedWaterTex) animatedWaterTex.offset.x += dt * 0.34;
+  const dt = Math.min(0.045, (now - lastTime) / 1000); lastTime = now;
+  animatedWaterMaps.forEach(t => { t.offset.x += dt * 0.32; });
   if (animatedWaterfallTex) animatedWaterfallTex.offset.y -= dt * 1.5;
 
   if (gameState === 'playing' && heroMesh) {
     for (const p of platforms) {
       if (p.movingRange > 0) {
-        p.phase += dt * p.speed;
-        const oldX = p.x;
-        p.x = p.baseX + Math.sin(p.phase) * p.movingRange;
-        p.mesh.position.x = p.x;
-        p.dx = p.x - oldX;
+        p.phase += dt * p.speed; const oldX = p.x; p.x = p.baseX + Math.sin(p.phase) * p.movingRange; p.mesh.position.x = p.x; p.dx = p.x - oldX;
       } else p.dx = 0;
     }
-
-    const moveSpeed = 9.2;
     let targetVx = 0;
-    if (keys.right) { targetVx += moveSpeed; player.facing = 1; }
-    if (keys.left) { targetVx -= moveSpeed; player.facing = -1; }
+    if (keys.right) { targetVx += 9.2; player.facing = 1; }
+    if (keys.left) { targetVx -= 9.2; player.facing = -1; }
     player.vx += (targetVx - player.vx) * Math.min(1, dt * 14);
     player.x = Math.max(-1.5, player.x + player.vx * dt);
-
-    if (player.onGround) player.coyoteTimer = 0.12;
-    else player.coyoteTimer -= dt;
+    if (player.onGround) player.coyoteTimer = 0.12; else player.coyoteTimer -= dt;
     if (player.jumpBuffer > 0) player.jumpBuffer -= dt;
-
     if (player.jumpBuffer > 0 && player.coyoteTimer > 0) {
-      player.vy = 14.8;
-      player.onGround = false;
-      player.coyoteTimer = 0;
-      player.jumpBuffer = 0;
-      SoundEngine.jump();
+      player.vy = 14.8; player.onGround = false; player.coyoteTimer = 0; player.jumpBuffer = 0; SoundEngine.jump();
     }
-
-    const prevY = player.y;
-    player.vy -= 32 * dt;
-    player.y += player.vy * dt;
-    player.onGround = false;
-
+    const prevY = player.y; player.vy -= 32 * dt; player.y += player.vy * dt; player.onGround = false;
     for (const p of platforms) {
-      if (Math.abs(player.x - p.x) <= p.w / 2 + 0.35) {
-        if (player.vy <= 0 && prevY >= p.topY - 0.25 && player.y <= p.topY + 0.08) {
-          player.y = p.topY;
-          player.vy = 0;
-          player.onGround = true;
-          if (p.dx) player.x += p.dx;
-          if (p.movingRange === 0) {
-            player.lastSafeX = p.x;
-            player.lastSafeY = p.topY + 1.2;
-          }
-        }
+      if (Math.abs(player.x - p.x) <= p.w / 2 + 0.35 && player.vy <= 0 && prevY >= p.topY - 0.25 && player.y <= p.topY + 0.08) {
+        player.y = p.topY; player.vy = 0; player.onGround = true;
+        if (p.dx) player.x += p.dx;
+        if (p.movingRange === 0) { player.lastSafeX = p.x; player.lastSafeY = p.topY + 1.2; }
       }
     }
-
     if (player.y < -3.0) {
-      player.hearts--;
-      SoundEngine.hurt();
-      updateHUD();
+      player.hearts--; SoundEngine.hurt(); updateHUD();
       if (player.hearts <= 0) showResult(false);
-      else {
-        player.x = player.lastSafeX; player.y = player.lastSafeY;
-        player.vx = 0; player.vy = 0; player.hurtTimer = 1.4;
-      }
+      else { player.x = player.lastSafeX; player.y = player.lastSafeY; player.vx = player.vy = 0; player.hurtTimer = 1.4; }
     }
-
-    if (player.hurtTimer > 0) {
-      player.hurtTimer -= dt;
-      heroMesh.visible = Math.floor(player.hurtTimer * 16) % 2 === 0;
-    } else heroMesh.visible = true;
-
+    if (player.hurtTimer > 0) { player.hurtTimer -= dt; heroMesh.visible = Math.floor(player.hurtTimer * 16) % 2 === 0; } else heroMesh.visible = true;
     heroMesh.position.set(player.x, player.y, 0);
-    // Keep baby's smiling face naturally angled slightly toward the viewer (+Z) while running
-    const targetRotY = player.facing > 0 ? 0.55 : -0.55;
-    heroMesh.rotation.y += (targetRotY - heroMesh.rotation.y) * Math.min(1, dt * 12);
+    heroMesh.rotation.y += ((player.facing > 0 ? 0.45 : -0.45) - heroMesh.rotation.y) * Math.min(1, dt * 12);
 
     const { armL, armR, legL, legR } = heroMesh.userData;
     if (player.onGround && Math.abs(player.vx) > 0.6) {
-      runCycle += dt * Math.abs(player.vx) * 1.8;
-      const s = Math.sin(runCycle) * 0.75;
-      legL.rotation.x = s; legR.rotation.x = -s;
-      armL.rotation.x = -s * 0.85; armR.rotation.x = s * 0.85;
+      runCycle += dt * Math.abs(player.vx) * 1.8; const s = Math.sin(runCycle) * 0.78;
+      legL.rotation.x = s; legR.rotation.x = -s; armL.rotation.x = -s * 0.85; armR.rotation.x = s * 0.85;
     } else if (!player.onGround) {
-      armL.rotation.x = -2.2; armR.rotation.x = -2.2;
-      legL.rotation.x = 0.55; legR.rotation.x = -0.55;
+      armL.rotation.x = armR.rotation.x = -2.2; legL.rotation.x = 0.6; legR.rotation.x = -0.6;
     } else {
-      legL.rotation.x *= 0.8; legR.rotation.x *= 0.8;
-      armL.rotation.x *= 0.8; armR.rotation.x *= 0.8;
+      legL.rotation.x *= 0.8; legR.rotation.x *= 0.8; armL.rotation.x *= 0.8; armR.rotation.x *= 0.8;
     }
 
     for (const c of coins) {
-      if (c.collected) continue;
-      c.mesh.rotation.z += dt * 3.5;
-      if (Math.hypot(player.x - c.x, (player.y + 0.9) - c.y) < 1.15) {
-        c.collected = true; c.mesh.visible = false;
-        player.coins++;
-        SoundEngine.coin();
-        spawnBurst(c.x, c.y, 0, 0xfacc15, 8);
-        updateHUD();
+      if (c.collected) continue; c.mesh.rotation.y += dt * 3.2;
+      if (Math.hypot(player.x - c.x, (player.y + 0.9) - c.y) < 1.2) {
+        c.collected = true; c.mesh.visible = false; player.coins++; SoundEngine.coin(); spawnBurst(c.x, c.y, 0, 0xfacc15, 8); updateHUD();
       }
     }
-
     for (const h of heartsItems) {
-      if (h.collected) continue;
-      h.mesh.position.y = h.y + Math.sin(now * 0.005) * 0.2;
+      if (h.collected) continue; h.mesh.position.y = h.y + Math.sin(now * 0.005) * 0.2;
       if (Math.hypot(player.x - h.x, (player.y + 0.9) - h.y) < 1.2) {
-        h.collected = true; h.mesh.visible = false;
-        player.hearts = Math.min(5, player.hearts + 1);
-        SoundEngine.coin();
-        spawnBurst(h.x, h.y, 0, 0xf43f5e, 10);
-        updateHUD();
+        h.collected = true; h.mesh.visible = false; player.hearts = Math.min(5, player.hearts + 1); SoundEngine.coin(); spawnBurst(h.x, h.y, 0, 0xf43f5e, 10); updateHUD();
       }
     }
-
     for (const en of enemies) {
       if (!en.alive) continue;
       en.x += en.vx * dt;
       if (en.x < en.minX) { en.x = en.minX; en.vx = Math.abs(en.vx); }
       if (en.x > en.maxX) { en.x = en.maxX; en.vx = -Math.abs(en.vx); }
-      en.hopPhase += dt * 5.5;
-      const hop = Math.abs(Math.sin(en.hopPhase)) * (en.type === 'monster' ? 0.45 : 0.16);
-      en.mesh.position.set(en.x, en.baseY + hop, 0);
-      en.mesh.rotation.y = en.vx > 0 ? 0.35 : -0.35;
-
-      const dx = Math.abs(player.x - en.x);
-      const dy = player.y - (en.baseY + hop);
-      if (dx < 0.95 && dy > -0.6 && dy < 1.2) {
+      en.hopPhase += dt * 5.5; const hop = Math.abs(Math.sin(en.hopPhase)) * 0.16;
+      en.mesh.position.set(en.x, en.baseY + hop, 0); en.mesh.rotation.y = en.vx > 0 ? 0.35 : -0.35;
+      if (Math.abs(player.x - en.x) < 1.0 && player.y - (en.baseY + hop) > -0.6 && player.y - (en.baseY + hop) < 1.25) {
         if (player.vy < -0.5 && player.y > en.baseY + hop + 0.35) {
-          en.alive = false; en.mesh.visible = false;
-          player.vy = 11.8; player.coins += 2;
-          SoundEngine.stomp();
-          spawnBurst(en.x, en.baseY + 0.5, 0, en.type === 'tomato' ? 0xef4444 : 0xa855f7, 14);
-          updateHUD();
-        } else {
-          damagePlayer(player.x < en.x ? -1 : 1);
-        }
+          en.alive = false; en.mesh.visible = false; player.vy = 11.8; player.coins += 2; SoundEngine.stomp();
+          spawnBurst(en.x, en.baseY + 0.5, 0, 0xef4444, 14); updateHUD();
+        } else damagePlayer(player.x < en.x ? -1 : 1);
       }
     }
-
     for (let i = particles.length - 1; i >= 0; i--) {
-      const pt = particles[i];
-      pt.life -= dt;
-      pt.vy -= 18 * dt;
-      pt.mesh.position.x += pt.vx * dt;
-      pt.mesh.position.y += pt.vy * dt;
-      pt.mesh.position.z += pt.vz * dt;
+      const pt = particles[i]; pt.life -= dt; pt.vy -= 18 * dt;
+      pt.mesh.position.x += pt.vx * dt; pt.mesh.position.y += pt.vy * dt; pt.mesh.position.z += pt.vz * dt;
       pt.mesh.scale.setScalar(Math.max(0.01, pt.life * 1.5));
       if (pt.life <= 0) { worldGroup.remove(pt.mesh); particles.splice(i, 1); }
     }
-
     if (player.x >= goalX - 1.1) showResult(true);
     updateHUD();
 
+    // Dynamic sun shadow camera tracks player
+    dirLight.position.set(player.x + 14, 28, 18);
+    dirLight.target.position.set(player.x + 4, 2, 0);
+
     const offsets = [
-      { x: -1.8, y: 4.8, z: 13.5, lookX: 2.6, lookY: 1.4 },
-      { x: 0.0,  y: 7.4, z: 18.5, lookX: 2.2, lookY: 1.2 },
-      { x: 1.0,  y: 3.3, z: 9.8,  lookX: 1.2, lookY: 1.6 }
+      { x: -1.4, y: 4.0, z: 11.2, lookX: 2.2, lookY: 1.4 },
+      { x: 0.0,  y: 6.8, z: 17.5, lookX: 2.2, lookY: 1.2 },
+      { x: 0.8,  y: 3.1, z: 8.8,  lookX: 1.0, lookY: 1.6 }
     ];
     const cm = offsets[camMode];
     camera.position.x += (player.x + cm.x - camera.position.x) * Math.min(1, dt * 6);
-    camera.position.y += (Math.max(2, player.y + cm.y) - camera.position.y) * Math.min(1, dt * 4);
+    camera.position.y += (Math.max(1.8, player.y + cm.y) - camera.position.y) * Math.min(1, dt * 4);
     camera.position.z += (cm.z - camera.position.z) * Math.min(1, dt * 6);
     camera.lookAt(player.x + cm.lookX, Math.max(0, player.y + cm.lookY), 0);
   } else if (gameState === 'menu') {
-    camera.position.set(6 + Math.sin(now * 0.0004) * 3, 5.5, 14);
-    camera.lookAt(8, 1.5, 0);
+    camera.position.set(6 + Math.sin(now * 0.0004) * 3, 4.8, 12.5);
+    camera.lookAt(8, 1.4, 0);
   }
-
   renderer.render(scene, camera);
 }
-
 loadLevel(0);
 requestAnimationFrame(animate);
 </script>
 </body>
-</html>
+</html> 
