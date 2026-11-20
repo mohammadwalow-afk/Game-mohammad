@@ -15,7 +15,7 @@
   html, body {
     margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden;
     font-family: 'Segoe UI', Tahoma, Arial, sans-serif;
-    background: #075985; touch-action: none;
+    background: #0284c7; touch-action: none;
   }
   #gameCanvas { display: block; width: 100%; height: 100%; }
   #hud {
@@ -25,28 +25,28 @@
   }
   .hud-group { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; pointer-events: auto; }
   .hud-pill {
-    background: linear-gradient(180deg, rgba(12, 55, 110, 0.88), rgba(8, 32, 70, 0.9));
-    border: 2px solid rgba(255,255,255,0.65); backdrop-filter: blur(6px);
+    background: linear-gradient(180deg, rgba(12, 65, 135, 0.9), rgba(8, 36, 82, 0.92));
+    border: 2px solid rgba(255,255,255,0.75); backdrop-filter: blur(6px);
     color: #fff; padding: 5px 12px; border-radius: 999px;
     font-weight: bold; font-size: 13px; display: flex; align-items: center; gap: 6px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.32);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.35);
   }
   .hud-title { background: linear-gradient(135deg, #0284c7, #38bdf8); border-color: #fff; }
   .hud-progress-pill { gap: 8px; min-width: 170px; }
   .mini-bar {
     flex: 1; height: 10px; background: rgba(0,0,0,0.45);
-    border-radius: 9px; border: 1px solid rgba(255,255,255,0.45); overflow: hidden;
+    border-radius: 9px; border: 1px solid rgba(255,255,255,0.5); overflow: hidden;
   }
   #progressFill {
     height: 100%; width: 0%;
     background: linear-gradient(90deg, #fde047, #f59e0b); transition: width 0.1s linear;
   }
   .hud-btn {
-    cursor: pointer; background: linear-gradient(145deg, #1d4ed8, #1e3a8a);
-    border: 2px solid rgba(255,255,255,0.75); color: #fff;
+    cursor: pointer; background: linear-gradient(145deg, #2563eb, #1e40af);
+    border: 2px solid rgba(255,255,255,0.85); color: #fff;
     width: 38px; height: 38px; border-radius: 50%;
     display: flex; align-items: center; justify-content: center; font-size: 16px;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.35);
+    box-shadow: 0 3px 10px rgba(0,0,0,0.35);
   }
   .hud-btn:active { transform: scale(0.92); }
   #controls {
@@ -57,13 +57,13 @@
   .ctrl-group { display: flex; gap: 10px; pointer-events: auto; align-items: center; }
   .ctrl-btn {
     width: 64px; height: 64px; border-radius: 50%;
-    border: 3px solid rgba(255,255,255,0.92); color: #fff; font-size: 24px; font-weight: bold;
+    border: 3px solid rgba(255,255,255,0.95); color: #fff; font-size: 24px; font-weight: bold;
     display: flex; flex-direction: column; align-items: center; justify-content: center;
     box-shadow: 0 6px 16px rgba(0,0,0,0.45); cursor: pointer; transition: transform 0.08s;
   }
   .ctrl-btn:active, .ctrl-btn.active { transform: scale(0.9); filter: brightness(1.15); }
   .btn-move { background: linear-gradient(145deg, #3b82f6, #1d4ed8); }
-  .btn-jump { width: 82px; height: 82px; font-size: 16px; background: linear-gradient(145deg, #4ade80, #16a34a); }
+  .btn-jump { width: 84px; height: 84px; font-size: 16px; background: linear-gradient(145deg, #4ade80, #16a34a); }
   .btn-cam { width: 52px; height: 52px; font-size: 18px; background: linear-gradient(145deg, #fbbf24, #d97706); }
   #rotateBanner {
     position: fixed; top: 54px; left: 50%; transform: translateX(-50%);
@@ -81,7 +81,7 @@
   .card {
     background: linear-gradient(180deg, #164e87, #0c2647);
     border: 3px solid rgba(255,255,255,0.45); border-radius: 24px; padding: 18px 20px;
-    width: min(590px, 95vw); max-height: 92vh; overflow-y: auto;
+    width: min(600px, 95vw); max-height: 92vh; overflow-y: auto;
     color: #fff; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.6);
   }
   .card h1 {
@@ -107,15 +107,16 @@
     border-radius: 16px; padding: 10px; text-align: center; font-size: 12px; color: #dbeafe;
   }
   #facePreviewCanvas {
-    width: 86px; height: 86px; border-radius: 50%; border: 3px solid #facc15;
+    width: 82px; height: 82px; border-radius: 50%; border: 3px solid #facc15;
     background: #f8cbb4; display: block; margin: 0 auto 6px;
   }
   .slider-row { display: flex; align-items: center; gap: 6px; font-size: 11px; margin-top: 4px; }
   .slider-row input { flex: 1; }
   .file-label {
     display: inline-block; background: #f59e0b; color: #000; font-weight: bold;
-    padding: 6px 12px; border-radius: 999px; cursor: pointer; margin-top: 4px; font-size: 12px;
+    padding: 6px 12px; border-radius: 999px; cursor: pointer; margin-top: 5px; font-size: 12px;
   }
+  .file-label.glb { background: #38bdf8; color: #082f49; }
   .file-label input { display: none; }
   .level-grid { display: grid; grid-template-columns: 1fr; gap: 8px; margin: 10px 0; }
   .level-item {
@@ -168,13 +169,17 @@
 <div id="startOverlay" class="overlay">
   <div class="card">
     <h1>👑 مغامرة محمد باشا 3D</h1>
-    <p>نسخة الغرافيك الواقعي! 5 مراحل وسط الجبال الثلجية والأنهار والشلالات — اجمع الذهب وادعس على وحوش الطماطم!</p>
+    <p>5 مراحل وسط الجبال الثلجية والأنهار والشلالات — اجمع الذهب وادعس على وحوش الطماطم الشريرة!</p>
     <div class="menu-cols">
       <div>
         <div class="photo-box">
           <canvas id="facePreviewCanvas" width="160" height="160"></canvas>
-          <b>وجه البطل محمد باشا</b><br>
-          <label class="file-label">📸 اختر صورته الحقيقية (تحفظ تلقائياً)
+          <b>شخصية البطل محمد باشا</b><br>
+          <label class="file-label glb">🧍 اختر مجسم الطفل (.glb)
+            <input type="file" id="glbInput" accept=".glb,.gltf" />
+          </label><br>
+          <span id="glbStatus" style="color:#86efac; font-size:11px;"></span>
+          <label class="file-label">📸 أو اختر صورة وجهه
             <input type="file" id="realPhotoInput" accept="image/*" />
           </label>
           <div id="photoAdjust" class="hidden">
@@ -182,7 +187,7 @@
             <div class="slider-row"><span>أعلى/أسفل</span><input type="range" id="photoOffsetY" min="-0.8" max="0.8" step="0.02" value="0.04" /></div>
             <div class="slider-row"><span>يمين/يسار</span><input type="range" id="photoOffsetX" min="-0.8" max="0.8" step="0.02" value="0.0" /></div>
           </div>
-          <div style="margin-top:8px; border-top:1px solid rgba(255,255,255,0.15); padding-top:6px;">
+          <div style="margin-top:6px; border-top:1px solid rgba(255,255,255,0.15); padding-top:5px;">
             <span>أصوات حقيقية (اختياري):</span><br>
             <label style="color:#7dd3fc; cursor:pointer; margin:0 4px;">😂 ضحكة <input type="file" id="customLaugh" accept="audio/*" style="display:none" /></label> |
             <label style="color:#fda4af; cursor:pointer; margin:0 4px;">😢 بكاء <input type="file" id="customCry" accept="audio/*" style="display:none" /></label>
@@ -215,7 +220,9 @@
   </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/DRACOLoader.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"></script>
 <script>
 // ===================== AUDIO ENGINE =====================
 const SoundEngine = {
@@ -295,22 +302,18 @@ function checkOrientationBanner() {
   document.getElementById('rotateBanner').style.display = (gameState === 'playing' && window.innerHeight > window.innerWidth) ? 'flex' : 'none';
 }
 // === END OF PART 1 ===
-// ===================== REALISTIC TEXTURES & BUMP MAPS =====================
+ // ===================== REALISTIC TEXTURES (FIXED COINS, ROCKS & PINE) =====================
 function createSkyTexture(topCol, midCol, horCol) {
   const c = document.createElement('canvas'); c.width = 512; c.height = 256;
   const ctx = c.getContext('2d');
   const g = ctx.createLinearGradient(0, 0, 0, 256);
   g.addColorStop(0.0, topCol); g.addColorStop(0.55, midCol); g.addColorStop(1.0, horCol);
   ctx.fillStyle = g; ctx.fillRect(0, 0, 512, 256);
-  // Soft realistic wispy clouds
-  for (let i = 0; i < 38; i++) {
-    const x = (i * 89) % 512, y = 45 + (i * 37) % 105;
-    ctx.fillStyle = 'rgba(255,255,255,0.22)';
-    ctx.beginPath(); ctx.ellipse(x, y, 42 + (i % 35), 9 + (i % 8), 0, 0, Math.PI * 2); ctx.fill();
+  for (let i = 0; i < 32; i++) {
+    ctx.fillStyle = 'rgba(255,255,255,0.28)';
+    ctx.beginPath(); ctx.ellipse((i * 89) % 512, 42 + (i * 37) % 100, 48 + (i % 35), 11 + (i % 8), 0, 0, Math.PI * 2); ctx.fill();
   }
-  const tex = new THREE.CanvasTexture(c);
-  tex.mapping = THREE.EquirectangularReflectionMapping;
-  return tex;
+  return new THREE.CanvasTexture(c);
 }
 
 function createGrassTextures(cBase, cMid, cBright) {
@@ -327,10 +330,9 @@ function createGrassTextures(cBase, cMid, cBright) {
     bctx.strokeStyle = i % 2 === 0 ? '#d4d4d4' : '#808080';
     bctx.lineWidth = 1.5; bctx.beginPath(); bctx.moveTo(x, y); bctx.lineTo(x, y - 6); bctx.stroke();
   }
-  for (let f = 0; f < 36; f++) {
-    const fx = ((f * 73) % 240) + 8, fy = ((f * 137) % 240) + 8;
+  for (let f = 0; f < 34; f++) {
     ctx.fillStyle = f % 3 === 0 ? '#fef08a' : '#ffffff';
-    ctx.beginPath(); ctx.arc(fx, fy, 2.6, 0, Math.PI * 2); ctx.fill();
+    ctx.beginPath(); ctx.arc(((f * 73) % 240) + 8, ((f * 137) % 240) + 8, 2.7, 0, Math.PI * 2); ctx.fill();
   }
   const map = new THREE.CanvasTexture(c), bump = new THREE.CanvasTexture(b);
   [map, bump].forEach(t => { t.wrapS = t.wrapT = THREE.RepeatWrapping; t.repeat.set(3, 2); });
@@ -338,23 +340,22 @@ function createGrassTextures(cBase, cMid, cBright) {
 }
 
 function createRockTextures(cBase, cDark, cLight) {
+  // Natural mottled granite/sandstone WITHOUT ugly straight lines
   const c = document.createElement('canvas'), b = document.createElement('canvas');
   c.width = b.width = 256; c.height = b.height = 256;
   const ctx = c.getContext('2d'), bctx = b.getContext('2d');
   const grad = ctx.createLinearGradient(0, 0, 0, 256);
-  grad.addColorStop(0, cLight); grad.addColorStop(0.55, cBase); grad.addColorStop(1, cDark);
+  grad.addColorStop(0, cLight); grad.addColorStop(0.5, cBase); grad.addColorStop(1, cDark);
   ctx.fillStyle = grad; ctx.fillRect(0, 0, 256, 256);
   bctx.fillStyle = '#808080'; bctx.fillRect(0, 0, 256, 256);
-  for (let i = 0; i < 120; i++) {
-    const x = (i * 53) % 256, y = (i * 97) % 256, w = 14 + (i % 4) * 14, h = 12 + (i % 3) * 12;
-    ctx.fillStyle = i % 2 === 0 ? cDark : cLight; ctx.globalAlpha = 0.25; ctx.fillRect(x, y, w, h);
-    bctx.fillStyle = i % 2 === 0 ? '#303030' : '#d8d8d8'; bctx.globalAlpha = 0.45; bctx.fillRect(x, y, w, h);
-  }
-  ctx.globalAlpha = 0.6; bctx.globalAlpha = 0.85;
-  ctx.strokeStyle = cDark; bctx.strokeStyle = '#151515'; ctx.lineWidth = 2.5; bctx.lineWidth = 3;
-  for (let v = 16; v < 256; v += 28) {
-    ctx.beginPath(); ctx.moveTo(v, 0); ctx.lineTo(v + ((v % 3) - 1) * 9, 128); ctx.lineTo(v - 4, 256); ctx.stroke();
-    bctx.beginPath(); bctx.moveTo(v, 0); bctx.lineTo(v + ((v % 3) - 1) * 9, 128); bctx.lineTo(v - 4, 256); bctx.stroke();
+  for (let i = 0; i < 420; i++) {
+    const x = (Math.sin(i * 19.3) * 43758 % 1 + 1) % 1 * 256;
+    const y = (Math.sin(i * 61.7) * 43758 % 1 + 1) % 1 * 256;
+    const r = 6 + (i % 18);
+    ctx.fillStyle = i % 3 === 0 ? cDark : (i % 3 === 1 ? cLight : cBase);
+    ctx.globalAlpha = 0.16; ctx.beginPath(); ctx.ellipse(x, y, r, r * 0.7, i, 0, Math.PI * 2); ctx.fill();
+    bctx.fillStyle = i % 2 === 0 ? '#555' : '#aaa';
+    bctx.globalAlpha = 0.22; bctx.beginPath(); ctx.ellipse(x, y, r, r * 0.7, i, 0, Math.PI * 2); bctx.fill();
   }
   ctx.globalAlpha = bctx.globalAlpha = 1;
   const map = new THREE.CanvasTexture(c), bump = new THREE.CanvasTexture(b);
@@ -369,11 +370,11 @@ function createWaterTextures(cDeep, cLight) {
   ctx.fillStyle = cDeep; ctx.fillRect(0, 0, 256, 256);
   bctx.fillStyle = '#808080'; bctx.fillRect(0, 0, 256, 256);
   for (let i = 0; i < 120; i++) {
-    const x = (i * 47) % 256, y = (i * 83) % 256, rx = 22 + (i % 24), ry = 4 + (i % 3);
-    ctx.fillStyle = i % 4 === 0 ? 'rgba(255,255,255,0.38)' : cLight;
-    ctx.globalAlpha = 0.45; ctx.beginPath(); ctx.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); ctx.fill();
-    bctx.fillStyle = i % 2 === 0 ? '#e5e5e5' : '#353535';
-    bctx.globalAlpha = 0.5; bctx.beginPath(); bctx.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); bctx.fill();
+    const x = (i * 47) % 256, y = (i * 83) % 256, rx = 24 + (i % 26), ry = 4 + (i % 3);
+    ctx.fillStyle = i % 3 === 0 ? 'rgba(255,255,255,0.52)' : cLight;
+    ctx.globalAlpha = 0.52; ctx.beginPath(); ctx.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); ctx.fill();
+    bctx.fillStyle = i % 2 === 0 ? '#dcdcdc' : '#404040';
+    bctx.globalAlpha = 0.45; bctx.beginPath(); bctx.ellipse(x, y, rx, ry, 0, 0, Math.PI * 2); bctx.fill();
   }
   ctx.globalAlpha = bctx.globalAlpha = 1;
   const map = new THREE.CanvasTexture(c), bump = new THREE.CanvasTexture(b);
@@ -385,23 +386,33 @@ function createWaterfallTex(cStream) {
   const c = document.createElement('canvas'); c.width = 128; c.height = 256;
   const ctx = c.getContext('2d');
   ctx.fillStyle = cStream; ctx.fillRect(0, 0, 128, 256);
-  for (let i = 0; i < 70; i++) {
-    ctx.fillStyle = i % 2 === 0 ? 'rgba(255,255,255,0.75)' : 'rgba(224,242,254,0.45)';
-    ctx.fillRect((i * 29) % 128, (i * 53) % 256, 3 + (i % 5), 26 + (i % 36));
+  for (let i = 0; i < 75; i++) {
+    ctx.fillStyle = i % 2 === 0 ? 'rgba(255,255,255,0.8)' : 'rgba(224,242,254,0.48)';
+    ctx.fillRect((i * 29) % 128, (i * 53) % 256, 3 + (i % 5), 28 + (i % 36));
   }
   const tex = new THREE.CanvasTexture(c);
   tex.wrapS = tex.wrapT = THREE.RepeatWrapping; tex.repeat.set(1, 2);
   return tex;
 }
 
-function createHairTexture() {
+function createCoinTex() {
   const c = document.createElement('canvas'); c.width = 128; c.height = 128;
   const ctx = c.getContext('2d');
-  ctx.fillStyle = '#5c4028'; ctx.fillRect(0, 0, 128, 128);
+  const g = ctx.createRadialGradient(64, 64, 8, 64, 64, 62);
+  g.addColorStop(0, '#fef08a'); g.addColorStop(0.7, '#facc15'); g.addColorStop(1, '#d97706');
+  ctx.fillStyle = g; ctx.fillRect(0, 0, 128, 128);
+  ctx.strokeStyle = '#b45309'; ctx.lineWidth = 8; ctx.beginPath(); ctx.arc(64, 64, 54, 0, Math.PI * 2); ctx.stroke();
+  ctx.fillStyle = '#fffbeb'; ctx.font = 'bold 54px Arial'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillText('★', 64, 67);
+  return new THREE.CanvasTexture(c);
+}
+
+function createHairTexture() {
+  const c = document.createElement('canvas'); c.width = 128; c.height = 128;
+  const ctx = c.getContext('2d'); ctx.fillStyle = '#5c4028'; ctx.fillRect(0, 0, 128, 128);
   for (let i = 0; i < 400; i++) {
-    ctx.strokeStyle = i % 2 === 0 ? '#422c1a' : '#7a5638';
-    ctx.lineWidth = 1.5; const x = (i * 19) % 128, y = (i * 37) % 128;
-    ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + 2, y + 10); ctx.stroke();
+    ctx.strokeStyle = i % 2 === 0 ? '#422c1a' : '#7a5638'; ctx.lineWidth = 1.5;
+    const x = (i * 19) % 128, y = (i * 37) % 128; ctx.beginPath(); ctx.moveTo(x, y); ctx.lineTo(x + 2, y + 10); ctx.stroke();
   }
   return new THREE.CanvasTexture(c);
 }
@@ -431,13 +442,14 @@ function createShirtFrontTex() {
   return new THREE.CanvasTexture(c);
 }
 
-// ===================== HERO FACE & PERSISTENCE =====================
+// ===================== FACE PHOTO & REAL 3D GLB LOADER (MESHY) =====================
 const facePreviewCanvas = document.getElementById('facePreviewCanvas');
 const facePreviewCtx = facePreviewCanvas.getContext('2d');
 const headTexCanvas = document.createElement('canvas'); headTexCanvas.width = 256; headTexCanvas.height = 256;
 const headTexCtx = headTexCanvas.getContext('2d');
 const heroFaceTexture = new THREE.CanvasTexture(headTexCanvas);
 let uploadedPhoto = null;
+let customGLBTemplate = null, customGLBAnimations = [], heroMixer = null, heroAction = null;
 
 function drawHeroFace() {
   const zoom = parseFloat(document.getElementById('photoZoom').value) || 1.55;
@@ -470,6 +482,27 @@ function drawHeroFace() {
   heroFaceTexture.needsUpdate = true;
 }
 
+const gltfLoader = new THREE.GLTFLoader();
+const dracoLoader = new THREE.DRACOLoader();
+dracoLoader.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/libs/draco/');
+gltfLoader.setDRACOLoader(dracoLoader);
+
+function normalizeAndStoreGLB(gltf, label) {
+  const model = gltf.scene;
+  const box = new THREE.Box3().setFromObject(model);
+  const size = box.getSize(new THREE.Vector3()), center = box.getCenter(new THREE.Vector3());
+  const scale = 2.35 / Math.max(0.01, size.y);
+  model.scale.setScalar(scale);
+  model.position.set(-center.x * scale, -box.min.y * scale, -center.z * scale);
+  model.traverse(c => { if (c.isMesh) { c.castShadow = true; c.receiveShadow = true; } });
+  customGLBTemplate = model;
+  customGLBAnimations = gltf.animations || [];
+  document.getElementById('glbStatus').textContent = `✅ تم تحميل المجسم (${label})`;
+  if (heroMesh && gameState === 'menu') loadLevel(currentLevelIdx);
+}
+
+// Auto-load hero.glb & face.jpg from GitHub if present
+gltfLoader.load('hero.glb', gltf => normalizeAndStoreGLB(gltf, 'hero.glb'), undefined, () => {});
 (function initSavedFace() {
   const saved = localStorage.getItem('mb_saved_photo');
   ['photoZoom', 'photoOffsetX', 'photoOffsetY'].forEach((id, i) => {
@@ -483,6 +516,14 @@ function drawHeroFace() {
   };
   if (saved) apply(saved, true); else apply('face.jpg', false);
 })();
+
+document.getElementById('glbInput').addEventListener('change', e => {
+  const f = e.target.files[0]; if (!f) return;
+  document.getElementById('glbStatus').textContent = '⏳ جاري تحميل المجسم...';
+  gltfLoader.load(URL.createObjectURL(f), gltf => normalizeAndStoreGLB(gltf, f.name), undefined, () => {
+    document.getElementById('glbStatus').textContent = '❌ تأكد أن الملف بصيغة .glb';
+  });
+});
 
 document.getElementById('realPhotoInput').addEventListener('change', e => {
   const file = e.target.files[0]; if (!file) return;
@@ -503,13 +544,13 @@ document.getElementById('realPhotoInput').addEventListener('change', e => {
 });
 drawHeroFace();
 
-// ===================== 5 LEVELS & RENDERER WITH REAL SHADOWS =====================
+// ===================== 5 LEVELS & RENDERER =====================
 const LEVELS = [
-  { name: 'وادي الجبال والشلالات', sky: ['#0369a1', '#38bdf8', '#e0f2fe'], fog: 0xcbeafe, grass: ['#14532d', '#16a34a', '#65a30d'], cliff: ['#6b4c35', '#3e2723', '#8d6e63'], water: ['#0369a1', '#38bdf8'], waterfall: '#7dd3fc', length: 145, enemySpeed: 2.3, hasMoving: false },
-  { name: 'غابة الصنوبر الذهبية', sky: ['#0284c7', '#0ea5e9', '#ccfbf1'], fog: 0xbef5ea, grass: ['#14532d', '#15803d', '#4ade80'], cliff: ['#57534e', '#292524', '#78716c'], water: ['#0284c7', '#67e8f9'], waterfall: '#a5f3fc', length: 180, enemySpeed: 2.8, hasMoving: true },
-  { name: 'أنهار القمم الثلجية', sky: ['#1d4ed8', '#38bdf8', '#cffafe'], fog: 0xcffafe, grass: ['#065f46', '#10b981', '#6ee7b7'], cliff: ['#64748b', '#334155', '#94a3b8'], water: ['#0f766e', '#2dd4bf'], waterfall: '#99f6e4', length: 215, enemySpeed: 3.3, hasMoving: true },
-  { name: 'وادي الغروب الساحر', sky: ['#7c2d12', '#f97316', '#fde68a'], fog: 0xfed7aa, grass: ['#3f6212', '#65a30d', '#a3e635'], cliff: ['#7c2d12', '#431407', '#9a3412'], water: ['#1e40af', '#60a5fa'], waterfall: '#93c5fd', length: 245, enemySpeed: 3.8, hasMoving: true },
-  { name: 'قمة محمد باشا الملكية', sky: ['#312e81', '#4f46e5', '#c7d2fe'], fog: 0xc7d2fe, grass: ['#14532d', '#22c55e', '#facc15'], cliff: ['#475569', '#1e293b', '#cbd5e1'], water: ['#0284c7', '#67e8f9'], waterfall: '#a5f3fc', length: 280, enemySpeed: 4.3, hasMoving: true }
+  { name: 'وادي الجبال والشلالات', sky: ['#0284c7', '#38bdf8', '#e0f2fe'], fog: 0xbae6fd, grass: ['#14532d', '#15803d', '#22c55e'], cliff: ['#78553a', '#4a3222', '#9c785c'], water: ['#0284c7', '#22d3ee'], waterfall: '#7dd3fc', length: 145, enemySpeed: 2.3, hasMoving: false },
+  { name: 'غابة الصنوبر الذهبية', sky: ['#0369a1', '#0ea5e9', '#ccfbf1'], fog: 0xa7f3d0, grass: ['#064e3b', '#14532d', '#16a34a'], cliff: ['#57534e', '#292524', '#78716c'], water: ['#0284c7', '#38bdf8'], waterfall: '#a5f3fc', length: 180, enemySpeed: 2.8, hasMoving: true },
+  { name: 'أنهار القمم الثلجية', sky: ['#1d4ed8', '#38bdf8', '#cffafe'], fog: 0xcffafe, grass: ['#065f46', '#059669', '#10b981'], cliff: ['#64748b', '#334155', '#94a3b8'], water: ['#0f766e', '#2dd4bf'], waterfall: '#99f6e4', length: 215, enemySpeed: 3.3, hasMoving: true },
+  { name: 'وادي الغروب الساحر', sky: ['#7c2d12', '#f97316', '#fde68a'], fog: 0xfed7aa, grass: ['#365314', '#4d7c0f', '#65a30d'], cliff: ['#7c2d12', '#431407', '#9a3412'], water: ['#1e40af', '#60a5fa'], waterfall: '#93c5fd', length: 245, enemySpeed: 3.8, hasMoving: true },
+  { name: 'قمة محمد باشا الملكية', sky: ['#312e81', '#4f46e5', '#c7d2fe'], fog: 0xc7d2fe, grass: ['#14532d', '#15803d', '#22c55e'], cliff: ['#475569', '#1e293b', '#94a3b8'], water: ['#0284c7', '#38bdf8'], waterfall: '#a5f3fc', length: 280, enemySpeed: 4.3, hasMoving: true }
 ];
 
 let currentLevelIdx = 0;
@@ -522,14 +563,14 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
-renderer.toneMappingExposure = 1.1;
+renderer.toneMappingExposure = 1.08;
 
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(48, window.innerWidth / window.innerHeight, 0.1, 280);
 
-const hemiLight = new THREE.HemisphereLight(0xe0f2fe, 0x365314, 0.72);
+const hemiLight = new THREE.HemisphereLight(0xe0f2fe, 0x365314, 0.78);
 scene.add(hemiLight);
-const dirLight = new THREE.DirectionalLight(0xfffbeb, 1.25);
+const dirLight = new THREE.DirectionalLight(0xfffbeb, 1.3);
 dirLight.position.set(16, 28, 18);
 dirLight.castShadow = true;
 dirLight.shadow.mapSize.set(1024, 1024);
@@ -538,19 +579,29 @@ const sd = 24;
 dirLight.shadow.camera.left = -sd; dirLight.shadow.camera.right = sd;
 dirLight.shadow.camera.top = sd; dirLight.shadow.camera.bottom = -sd;
 dirLight.shadow.bias = -0.0008;
-scene.add(dirLight);
-scene.add(dirLight.target);
+scene.add(dirLight); scene.add(dirLight.target);
 
 let worldGroup = new THREE.Group();
 scene.add(worldGroup);
 
-const stripeTex = createStripedClothTex();
-const shirtFrontTex = createShirtFrontTex();
-const hairTex = createHairTexture();
+const stripeTex = createStripedClothTex(), shirtFrontTex = createShirtFrontTex(), hairTex = createHairTexture(), coinTex = createCoinTex();
 
-// ===================== REALISTIC HERO, BEAST & ALPINE TERRAIN =====================
+// ===================== HERO, ENEMIES & NATURAL SCENERY =====================
 function buildHero() {
-  const group = new THREE.Group();
+  const wrapper = new THREE.Group();
+  heroMixer = null; heroAction = null;
+  if (customGLBTemplate) {
+    const model = customGLBTemplate.clone();
+    wrapper.add(model);
+    if (customGLBAnimations.length > 0) {
+      heroMixer = new THREE.AnimationMixer(model);
+      heroAction = heroMixer.clipAction(customGLBAnimations[0]);
+      heroAction.play();
+    }
+    wrapper.userData = { isGLB: true, model };
+    return wrapper;
+  }
+
   const stripeMat = new THREE.MeshStandardMaterial({ map: stripeTex, roughness: 0.75 });
   const shirtMat = new THREE.MeshStandardMaterial({ color: 0xbae6fd, roughness: 0.75 });
   const shirtFrontMat = new THREE.MeshStandardMaterial({ map: shirtFrontTex, roughness: 0.7 });
@@ -559,15 +610,14 @@ function buildHero() {
   const hairMat = new THREE.MeshStandardMaterial({ map: hairTex, roughness: 0.85 });
 
   const torso = new THREE.Mesh(new THREE.CylinderGeometry(0.36, 0.41, 0.72, 16), shirtMat);
-  torso.position.y = 0.94; torso.castShadow = true; group.add(torso);
+  torso.position.y = 0.94; torso.castShadow = true; wrapper.add(torso);
   const chestPatch = new THREE.Mesh(new THREE.PlaneGeometry(0.54, 0.54), shirtFrontMat);
-  chestPatch.position.set(0, 0.95, 0.385); group.add(chestPatch);
+  chestPatch.position.set(0, 0.95, 0.385); wrapper.add(chestPatch);
   const collar = new THREE.Mesh(new THREE.TorusGeometry(0.24, 0.055, 8, 16), cuffMat);
-  collar.rotation.x = Math.PI / 2; collar.position.y = 1.31; group.add(collar);
+  collar.rotation.x = Math.PI / 2; collar.position.y = 1.31; wrapper.add(collar);
   const waistBand = new THREE.Mesh(new THREE.CylinderGeometry(0.415, 0.415, 0.11, 16), cuffMat);
-  waistBand.position.y = 0.59; group.add(waistBand);
+  waistBand.position.y = 0.59; wrapper.add(waistBand);
 
-  // Clean spherical head (zero z-fighting on forehead!)
   const headGroup = new THREE.Group(); headGroup.position.y = 1.72;
   const headSphere = new THREE.Mesh(new THREE.SphereGeometry(0.43, 24, 20), skinMat);
   headSphere.castShadow = true; headGroup.add(headSphere);
@@ -582,14 +632,14 @@ function buildHero() {
     const ear = new THREE.Mesh(new THREE.SphereGeometry(0.085, 10, 10), skinMat);
     ear.position.set(ex, -0.02, -0.02); headGroup.add(ear);
   });
-  group.add(headGroup);
+  wrapper.add(headGroup);
 
   const makeArm = x => {
     const p = new THREE.Group(); p.position.set(x, 1.22, 0);
     const s = new THREE.Mesh(new THREE.CylinderGeometry(0.11, 0.095, 0.44, 12), stripeMat); s.position.y = -0.2; s.castShadow = true;
     const c = new THREE.Mesh(new THREE.CylinderGeometry(0.105, 0.105, 0.08, 12), cuffMat); c.position.y = -0.44;
     const h = new THREE.Mesh(new THREE.SphereGeometry(0.095, 10, 10), skinMat); h.position.y = -0.52;
-    p.add(s, c, h); group.add(p); return p;
+    p.add(s, c, h); wrapper.add(p); return p;
   };
   const makeLeg = x => {
     const p = new THREE.Group(); p.position.set(x, 0.56, 0);
@@ -599,19 +649,16 @@ function buildHero() {
     u.position.set(0, -0.49, 0.05); u.castShadow = true;
     const so = new THREE.Mesh(new THREE.BoxGeometry(0.25, 0.06, 0.36), new THREE.MeshStandardMaterial({ color: 0xffffff, roughness: 0.4 }));
     so.position.set(0, -0.56, 0.05);
-    p.add(l, c, u, so); group.add(p); return p;
+    p.add(l, c, u, so); wrapper.add(p); return p;
   };
-  group.scale.setScalar(1.18);
-  group.userData = { headGroup, armL: makeArm(-0.44), armR: makeArm(0.44), legL: makeLeg(-0.18), legR: makeLeg(0.18) };
-  return group;
+  wrapper.scale.setScalar(1.18);
+  wrapper.userData = { isGLB: false, headGroup, armL: makeArm(-0.44), armR: makeArm(0.44), legL: makeLeg(-0.18), legR: makeLeg(0.18) };
+  return wrapper;
 }
 
 function buildTomatoEnemy() {
   const g = new THREE.Group();
-  const body = new THREE.Mesh(
-    new THREE.SphereGeometry(0.56, 20, 16),
-    new THREE.MeshStandardMaterial({ color: 0xdc2626, roughness: 0.25, metalness: 0.05 })
-  );
+  const body = new THREE.Mesh(new THREE.SphereGeometry(0.56, 20, 16), new THREE.MeshStandardMaterial({ color: 0xdc2626, roughness: 0.25 }));
   body.scale.set(1.12, 0.88, 1.08); body.position.y = 0.58; body.castShadow = true; g.add(body);
   const leafMat = new THREE.MeshStandardMaterial({ color: 0x15803d, roughness: 0.6 });
   for (let i = 0; i < 5; i++) {
@@ -620,13 +667,10 @@ function buildTomatoEnemy() {
     leaf.rotation.z = -Math.cos(a) * 0.7; leaf.rotation.x = Math.sin(a) * 0.7; g.add(leaf);
   }
   [-0.2, 0.2].forEach((ex, idx) => {
-    const eye = new THREE.Mesh(new THREE.SphereGeometry(0.11, 10, 10), new THREE.MeshBasicMaterial({ color: 0xfef08a }));
-    eye.position.set(ex, 0.68, 0.5);
-    const p = new THREE.Mesh(new THREE.SphereGeometry(0.05, 8, 8), new THREE.MeshBasicMaterial({ color: 0x000000 }));
-    p.position.set(ex, 0.67, 0.59);
+    const eye = new THREE.Mesh(new THREE.SphereGeometry(0.11, 10, 10), new THREE.MeshBasicMaterial({ color: 0xfef08a })); eye.position.set(ex, 0.68, 0.5);
+    const p = new THREE.Mesh(new THREE.SphereGeometry(0.05, 8, 8), new THREE.MeshBasicMaterial({ color: 0x000000 })); p.position.set(ex, 0.67, 0.59);
     const brow = new THREE.Mesh(new THREE.BoxGeometry(0.24, 0.06, 0.06), new THREE.MeshStandardMaterial({ color: 0x450a0a }));
-    brow.position.set(ex, 0.79, 0.54); brow.rotation.z = idx === 0 ? -0.35 : 0.35;
-    g.add(eye, p, brow);
+    brow.position.set(ex, 0.79, 0.54); brow.rotation.z = idx === 0 ? -0.35 : 0.35; g.add(eye, p, brow);
   });
   const mouth = new THREE.Mesh(new THREE.BoxGeometry(0.46, 0.16, 0.08), new THREE.MeshBasicMaterial({ color: 0x2b0404 }));
   mouth.position.set(0, 0.42, 0.53); g.add(mouth);
@@ -646,71 +690,52 @@ function buildPineTree(barkTex, leafColors) {
   const trunk = new THREE.Mesh(new THREE.CylinderGeometry(0.2, 0.38, 2.8, 10), new THREE.MeshStandardMaterial({ map: barkTex, roughness: 0.9 }));
   trunk.position.y = 1.4; trunk.castShadow = true; g.add(trunk);
   for (let i = 0; i < 5; i++) {
-    const r = 1.75 - i * 0.28, h = 1.6 - i * 0.12, y = 2.1 + i * 0.85;
-    const cone = new THREE.Mesh(new THREE.ConeGeometry(r, h, 12), new THREE.MeshStandardMaterial({ color: leafColors[i % leafColors.length], roughness: 0.85 }));
-    cone.position.y = y; cone.rotation.y = i * 0.7; cone.castShadow = true; cone.receiveShadow = true; g.add(cone);
+    const cone = new THREE.Mesh(new THREE.ConeGeometry(1.75 - i * 0.28, 1.6 - i * 0.12, 12), new THREE.MeshStandardMaterial({ color: leafColors[i % leafColors.length], roughness: 0.85 }));
+    cone.position.y = 2.1 + i * 0.85; cone.rotation.y = i * 0.7; cone.castShadow = true; cone.receiveShadow = true; g.add(cone);
   }
   return g;
 }
 
 function buildAlpineMountainRange(len, rockCol, snowCol, valleyCol) {
-  const geo = new THREE.PlaneGeometry(len + 180, 56, 95, 16);
-  geo.rotateX(-Math.PI / 2);
-  const pos = geo.attributes.position;
-  const colors = [];
+  const geo = new THREE.PlaneGeometry(len + 180, 56, 95, 16); geo.rotateX(-Math.PI / 2);
+  const pos = geo.attributes.position, colors = [];
   const cVal = new THREE.Color(valleyCol), cRock = new THREE.Color(rockCol), cSnow = new THREE.Color(snowCol);
   for (let i = 0; i < pos.count; i++) {
-    const x = pos.getX(i), z = pos.getZ(i);
-    const backFactor = Math.max(0, (-z + 24) / 48);
+    const x = pos.getX(i), z = pos.getZ(i), backFactor = Math.max(0, (-z + 24) / 48);
     const ridge = Math.abs(Math.sin(x * 0.055) * 14 + Math.cos(x * 0.13 + z * 0.08) * 7 + Math.sin(x * 0.27) * 3.5);
-    const y = ridge * backFactor * 1.15 - 4.2;
-    pos.setY(i, y);
-    const col = y > 10.5 ? cSnow.clone().lerp(cRock, Math.max(0, 1 - (y - 10.5) / 4)) : (y > 2.5 ? cRock : cVal.clone().lerp(cRock, Math.max(0, (y + 3) / 6)));
+    const y = ridge * backFactor * 1.25 - 4.2; pos.setY(i, y);
+    const col = y > 9.5 ? cSnow.clone().lerp(cRock, Math.max(0, 1 - (y - 9.5) / 3.5)) : (y > 2.2 ? cRock : cVal.clone().lerp(cRock, Math.max(0, (y + 3) / 6)));
     colors.push(col.r, col.g, col.b);
   }
-  geo.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3));
-  geo.computeVertexNormals();
+  geo.setAttribute('color', new THREE.Float32BufferAttribute(colors, 3)); geo.computeVertexNormals();
   const mesh = new THREE.Mesh(geo, new THREE.MeshStandardMaterial({ vertexColors: true, roughness: 0.92, flatShading: true }));
-  mesh.position.set(len / 2, 0, -48);
-  return mesh;
+  mesh.position.set(len / 2, 0, -48); return mesh;
 }
 
 function buildWaterfallFormation(x, cliffMat, wfTex) {
   const g = new THREE.Group();
-  // Sculpted natural jagged cliff rocks instead of rectangular block
-  const clusters = [
-    { x: -3.2, y: 3, z: -0.6, sx: 2.8, sy: 6.5, sz: 2.4 },
-    { x: 3.2,  y: 3.5, z: -0.4, sx: 2.9, sy: 7.0, sz: 2.5 },
-    { x: 0.0,  y: 7.5, z: -1.6, sx: 5.4, sy: 4.5, sz: 2.8 },
-    { x: 0.0,  y: 1.5, z: -1.8, sx: 4.8, sy: 4.0, sz: 2.4 }
-  ];
-  clusters.forEach((cl, idx) => {
-    const rock = new THREE.Mesh(new THREE.DodecahedronGeometry(1.4, 1), cliffMat);
-    rock.scale.set(cl.sx, cl.sy, cl.sz);
-    rock.rotation.set(idx * 0.4, idx * 0.9, 0.2);
-    rock.position.set(cl.x, cl.y, cl.z);
-    g.add(rock);
+  [{ x: -3.2, y: 2.5, z: -0.6, sx: 2.6, sy: 5.8, sz: 2.2 }, { x: 3.2, y: 2.8, z: -0.5, sx: 2.7, sy: 6.2, sz: 2.2 }, { x: 0, y: 6.8, z: -1.4, sx: 4.8, sy: 3.8, sz: 2.4 }].forEach((cl, idx) => {
+    const rock = new THREE.Mesh(new THREE.DodecahedronGeometry(1.3, 1), cliffMat);
+    rock.scale.set(cl.sx, cl.sy, cl.sz); rock.rotation.set(idx * 0.4, idx * 0.9, 0.2); rock.position.set(cl.x, cl.y, cl.z); g.add(rock);
   });
-  const wf = new THREE.Mesh(new THREE.PlaneGeometry(3.8, 13.5), new THREE.MeshBasicMaterial({ map: wfTex, transparent: true, opacity: 0.88 }));
-  wf.position.set(0, 3.6, 0.45); g.add(wf);
-  const foam = new THREE.Mesh(new THREE.CylinderGeometry(2.8, 3.4, 0.4, 16), new THREE.MeshBasicMaterial({ color: 0xf0f9ff, transparent: true, opacity: 0.82 }));
+  const wf = new THREE.Mesh(new THREE.PlaneGeometry(3.8, 12.5), new THREE.MeshBasicMaterial({ map: wfTex, transparent: true, opacity: 0.9 }));
+  wf.position.set(0, 3.2, 0.45); g.add(wf);
+  const foam = new THREE.Mesh(new THREE.CylinderGeometry(2.8, 3.4, 0.4, 16), new THREE.MeshBasicMaterial({ color: 0xf0f9ff, transparent: true, opacity: 0.86 }));
   foam.position.set(0, -3.0, 1.4); g.add(foam);
-  g.position.set(x, 0, -17);
-  return g;
+  g.position.set(x, 0, -22); return g;
 }
 
-function buildGoalFlag(envTex) {
+function buildGoalFlag() {
   const g = new THREE.Group();
-  const goldMat = new THREE.MeshStandardMaterial({ color: 0xfacc15, metalness: 0.85, roughness: 0.2, envMap: envTex });
+  const goldMat = new THREE.MeshStandardMaterial({ color: 0xfacc15, emissive: 0xb45309, emissiveIntensity: 0.4, roughness: 0.22, metalness: 0.5 });
   const base = new THREE.Mesh(new THREE.CylinderGeometry(0.9, 1.1, 0.45, 16), goldMat); base.position.y = 0.22;
   const pole = new THREE.Mesh(new THREE.CylinderGeometry(0.1, 0.1, 5.5, 10), goldMat); pole.position.y = 2.95; pole.castShadow = true;
   const flag = new THREE.Mesh(new THREE.BoxGeometry(2.1, 1.25, 0.1), goldMat); flag.position.set(1.1, 5.0, 0);
   const ball = new THREE.Mesh(new THREE.SphereGeometry(0.28, 12, 12), goldMat); ball.position.y = 5.8;
-  g.add(base, pole, flag, ball);
-  return g;
+  g.add(base, pole, flag, ball); return g;
 }
 
-// ===================== LEVEL BUILDER & GAME LOOP =====================
+// ===================== LEVEL BUILDER & LOOP =====================
 let platforms = [], enemies = [], coins = [], heartsItems = [], particles = [];
 let animatedWaterMaps = [], animatedWaterfallTex = null, heroMesh = null, goalX = 140;
 const player = { x: 2, y: 2, vx: 0, vy: 0, onGround: false, coyoteTimer: 0, jumpBuffer: 0, facing: 1, coins: 0, hearts: 3, hurtTimer: 0, lastSafeX: 2, lastSafeY: 2 };
@@ -726,13 +751,12 @@ function spawnBurst(x, y, z, color, count = 12) {
 
 function loadLevel(idx) {
   currentLevelIdx = idx; const cfg = LEVELS[idx];
-  scene.fog = new THREE.FogExp2(cfg.fog, 0.0085);
+  scene.fog = new THREE.FogExp2(cfg.fog, 0.0032);
   while (worldGroup.children.length > 0) worldGroup.remove(worldGroup.children[0]);
   platforms = []; enemies = []; coins = []; heartsItems = []; particles = []; animatedWaterMaps = [];
 
   const skyTex = createSkyTexture(cfg.sky[0], cfg.sky[1], cfg.sky[2]);
-  const skyDome = new THREE.Mesh(new THREE.SphereGeometry(190, 24, 16), new THREE.MeshBasicMaterial({ map: skyTex, side: THREE.BackSide, fog: false }));
-  worldGroup.add(skyDome);
+  worldGroup.add(new THREE.Mesh(new THREE.SphereGeometry(195, 24, 16), new THREE.MeshBasicMaterial({ map: skyTex, side: THREE.BackSide, fog: false })));
 
   const grassT = createGrassTextures(cfg.grass[0], cfg.grass[1], cfg.grass[2]);
   const rockT = createRockTextures(cfg.cliff[0], cfg.cliff[1], cfg.cliff[2]);
@@ -742,26 +766,24 @@ function loadLevel(idx) {
   const barkTex = createBarkTex();
 
   const grassMat = new THREE.MeshStandardMaterial({ map: grassT.map, bumpMap: grassT.bump, bumpScale: 0.18, roughness: 0.88 });
-  const cliffMat = new THREE.MeshStandardMaterial({ map: rockT.map, bumpMap: rockT.bump, bumpScale: 0.45, roughness: 0.92 });
-  const coinMat = new THREE.MeshStandardMaterial({ color: 0xfacc15, metalness: 0.88, roughness: 0.18, envMap: skyTex });
+  const cliffMat = new THREE.MeshStandardMaterial({ map: rockT.map, bumpMap: rockT.bump, bumpScale: 0.35, roughness: 0.92, flatShading: true });
+  const coinEdgeMat = new THREE.MeshStandardMaterial({ color: 0xfacc15, emissive: 0xd97706, emissiveIntensity: 0.45, roughness: 0.25, metalness: 0.5 });
+  const coinFaceMat = new THREE.MeshStandardMaterial({ map: coinTex, emissive: 0xb45309, emissiveIntensity: 0.38, roughness: 0.25, metalness: 0.35 });
 
-  // Flowing specular valley river
   const river = new THREE.Mesh(
     new THREE.PlaneGeometry(cfg.length + 180, 68),
-    new THREE.MeshStandardMaterial({ map: waterT.map, bumpMap: waterT.bump, bumpScale: 0.22, roughness: 0.14, metalness: 0.25, envMap: skyTex, transparent: true, opacity: 0.94 })
+    new THREE.MeshStandardMaterial({ map: waterT.map, bumpMap: waterT.bump, bumpScale: 0.22, roughness: 0.16, metalness: 0.12, transparent: true, opacity: 0.95 })
   );
-  river.rotation.x = -Math.PI / 2; river.position.set(cfg.length / 2, -3.2, -12); river.receiveShadow = true;
-  worldGroup.add(river);
+  river.rotation.x = -Math.PI / 2; river.position.set(cfg.length / 2, -3.2, -12); river.receiveShadow = true; worldGroup.add(river);
 
-  // Realistic Alpine Mountain Range
-  worldGroup.add(buildAlpineMountainRange(cfg.length, 0x64748b, 0xf8fafc, cfg.grass[0]));
+  worldGroup.add(buildAlpineMountainRange(cfg.length, 0x334155, 0xf8fafc, cfg.grass[0]));
 
   for (let bx = -10; bx < cfg.length + 60; bx += 26) {
     if (bx % 52 === 16) worldGroup.add(buildWaterfallFormation(bx, cliffMat, animatedWaterfallTex));
     const pine = buildPineTree(barkTex, cfg.grass);
-    pine.position.set(bx, -2.6, -9 - (bx % 5)); pine.scale.setScalar(1.25); worldGroup.add(pine);
-    const boulder = new THREE.Mesh(new THREE.DodecahedronGeometry(1.3, 1), cliffMat);
-    boulder.scale.set(1.4, 0.75, 1.1); boulder.position.set(bx + 9, -3.1, -6 - (bx % 4)); worldGroup.add(boulder);
+    pine.position.set(bx, -2.6, -10 - (bx % 5)); pine.scale.setScalar(1.25); worldGroup.add(pine);
+    const boulder = new THREE.Mesh(new THREE.DodecahedronGeometry(1.2, 1), cliffMat);
+    boulder.scale.set(1.4, 0.7, 1.1); boulder.position.set(bx + 9, -3.1, -6 - (bx % 4)); worldGroup.add(boulder);
   }
 
   function addPlatform(x, y, w, h = 6, depth = 4.6, movingRange = 0, speed = 1.6) {
@@ -769,17 +791,14 @@ function loadLevel(idx) {
     const top = new THREE.Mesh(new THREE.BoxGeometry(w + 0.4, 0.72, depth + 0.4), grassMat);
     top.position.y = -0.34; top.receiveShadow = true;
     const body = new THREE.Mesh(new THREE.BoxGeometry(w - 0.1, h, depth - 0.15), cliffMat);
-    body.position.y = -0.7 - h / 2; body.receiveShadow = true;
-    pg.add(top, body);
-    // Natural jutting boulders along cliff edges + 3D grass tufts on top
-    const bCount = Math.max(2, Math.floor(w / 3.5));
+    body.position.y = -0.7 - h / 2; body.receiveShadow = true; pg.add(top, body);
+    const bCount = Math.max(2, Math.floor(w / 3.8));
     for (let i = 0; i < bCount; i++) {
-      const bx = -w * 0.42 + (i / Math.max(1, bCount - 1)) * w * 0.84;
-      const b = new THREE.Mesh(new THREE.DodecahedronGeometry(0.95, 1), cliffMat);
-      b.scale.set(1.1, 1.4, 0.85); b.rotation.set(i, i * 0.7, 0.2);
-      b.position.set(bx, -1.5 - (i % 2) * 1.1, depth * 0.42); pg.add(b);
-      const tuft = new THREE.Mesh(new THREE.ConeGeometry(0.22, 0.45, 5), grassMat);
-      tuft.position.set(bx + 0.3, 0.2, depth * 0.38); pg.add(tuft);
+      const bx = -w * 0.4 + (i / Math.max(1, bCount - 1)) * w * 0.8;
+      const b = new THREE.Mesh(new THREE.DodecahedronGeometry(0.85, 1), cliffMat);
+      b.scale.set(1.15, 1.35, 0.8); b.rotation.set(i, i * 0.7, 0.2); b.position.set(bx, -1.5 - (i % 2) * 1.0, depth * 0.42); pg.add(b);
+      const tuft = new THREE.Mesh(new THREE.ConeGeometry(0.2, 0.4, 5), grassMat);
+      tuft.position.set(bx + 0.3, 0.18, depth * 0.38); pg.add(tuft);
     }
     pg.position.set(x, y, 0); worldGroup.add(pg);
     platforms.push({ mesh: pg, x, y, baseX: x, w, topY: y, movingRange, speed, phase: x * 0.3 });
@@ -787,17 +806,16 @@ function loadLevel(idx) {
 
   function addCoin(x, y) {
     const g = new THREE.Group();
-    const disc = new THREE.Mesh(new THREE.CylinderGeometry(0.42, 0.42, 0.11, 20), coinMat);
+    const disc = new THREE.Mesh(new THREE.CylinderGeometry(0.45, 0.45, 0.12, 22), [coinEdgeMat, coinFaceMat, coinFaceMat]);
     disc.rotation.x = Math.PI / 2;
-    const rim = new THREE.Mesh(new THREE.TorusGeometry(0.38, 0.06, 8, 20), coinMat);
+    const rim = new THREE.Mesh(new THREE.TorusGeometry(0.43, 0.055, 8, 22), coinEdgeMat);
     g.add(disc, rim); g.position.set(x, y, 0); worldGroup.add(g);
     coins.push({ mesh: g, x, y, collected: false });
   }
 
   function addHeartPickup(x, y) {
     const h = new THREE.Mesh(new THREE.SphereGeometry(0.38, 12, 12), new THREE.MeshStandardMaterial({ color: 0xf43f5e, emissive: 0x881337, roughness: 0.25 }));
-    h.position.set(x, y, 0); worldGroup.add(h);
-    heartsItems.push({ mesh: h, x, y, collected: false });
+    h.position.set(x, y, 0); worldGroup.add(h); heartsItems.push({ mesh: h, x, y, collected: false });
   }
 
   function addEnemy(x, y, minX, maxX, spd) {
@@ -836,7 +854,7 @@ function loadLevel(idx) {
   const endCenter = cursor + 11.2;
   addPlatform(endCenter, 0.6, 16, 7, 5);
   goalX = endCenter + 2.5;
-  const flag = buildGoalFlag(skyTex); flag.position.set(goalX, 0.6, 0); worldGroup.add(flag);
+  const flag = buildGoalFlag(); flag.position.set(goalX, 0.6, 0); worldGroup.add(flag);
   const endPine = buildPineTree(barkTex, cfg.grass); endPine.position.set(endCenter - 4, 0.6, -2.5); worldGroup.add(endPine);
 
   heroMesh = buildHero(); worldGroup.add(heroMesh);
@@ -851,7 +869,7 @@ function updateHUD() {
   document.getElementById('progressFill').style.width = `${Math.max(0, Math.min(100, (player.x / Math.max(1, goalX)) * 100)).toFixed(0)}%`;
 }
 
-// ===================== INPUT, UI & MAIN LOOP =====================
+// ===================== INPUT, UI & LOOP =====================
 const keys = { left: false, right: false, jump: false };
 function bindHoldBtn(id, prop) {
   const el = document.getElementById(id);
@@ -963,17 +981,34 @@ function animate(now) {
       else { player.x = player.lastSafeX; player.y = player.lastSafeY; player.vx = player.vy = 0; player.hurtTimer = 1.4; }
     }
     if (player.hurtTimer > 0) { player.hurtTimer -= dt; heroMesh.visible = Math.floor(player.hurtTimer * 16) % 2 === 0; } else heroMesh.visible = true;
-    heroMesh.position.set(player.x, player.y, 0);
-    heroMesh.rotation.y += ((player.facing > 0 ? 0.45 : -0.45) - heroMesh.rotation.y) * Math.min(1, dt * 12);
 
-    const { armL, armR, legL, legR } = heroMesh.userData;
-    if (player.onGround && Math.abs(player.vx) > 0.6) {
-      runCycle += dt * Math.abs(player.vx) * 1.8; const s = Math.sin(runCycle) * 0.78;
-      legL.rotation.x = s; legR.rotation.x = -s; armL.rotation.x = -s * 0.85; armR.rotation.x = s * 0.85;
-    } else if (!player.onGround) {
-      armL.rotation.x = armR.rotation.x = -2.2; legL.rotation.x = 0.6; legR.rotation.x = -0.6;
+    heroMesh.position.set(player.x, player.y, 0);
+    heroMesh.rotation.y += ((player.facing > 0 ? 0.55 : -0.55) - heroMesh.rotation.y) * Math.min(1, dt * 12);
+
+    if (heroMesh.userData.isGLB) {
+      if (heroMixer) { heroMixer.update(dt * (Math.abs(player.vx) > 0.5 ? 1.4 : 0.35)); }
+      else {
+        // Lively procedural hop & lean for static Meshy GLB model
+        if (player.onGround && Math.abs(player.vx) > 0.6) {
+          runCycle += dt * 12;
+          heroMesh.position.y = player.y + Math.abs(Math.sin(runCycle)) * 0.18;
+          heroMesh.rotation.z = -player.facing * 0.1 + Math.sin(runCycle) * 0.06;
+        } else if (!player.onGround) {
+          heroMesh.rotation.z = -player.facing * 0.18;
+        } else {
+          heroMesh.rotation.z *= 0.82;
+        }
+      }
     } else {
-      legL.rotation.x *= 0.8; legR.rotation.x *= 0.8; armL.rotation.x *= 0.8; armR.rotation.x *= 0.8;
+      const { armL, armR, legL, legR } = heroMesh.userData;
+      if (player.onGround && Math.abs(player.vx) > 0.6) {
+        runCycle += dt * Math.abs(player.vx) * 1.8; const s = Math.sin(runCycle) * 0.78;
+        legL.rotation.x = s; legR.rotation.x = -s; armL.rotation.x = -s * 0.85; armR.rotation.x = s * 0.85;
+      } else if (!player.onGround) {
+        armL.rotation.x = armR.rotation.x = -2.2; legL.rotation.x = 0.6; legR.rotation.x = -0.6;
+      } else {
+        legL.rotation.x *= 0.8; legR.rotation.x *= 0.8; armL.rotation.x *= 0.8; armR.rotation.x *= 0.8;
+      }
     }
 
     for (const c of coins) {
@@ -1011,7 +1046,6 @@ function animate(now) {
     if (player.x >= goalX - 1.1) showResult(true);
     updateHUD();
 
-    // Dynamic sun shadow camera tracks player
     dirLight.position.set(player.x + 14, 28, 18);
     dirLight.target.position.set(player.x + 4, 2, 0);
 
@@ -1035,4 +1069,4 @@ loadLevel(0);
 requestAnimationFrame(animate);
 </script>
 </body>
-</html> 
+</html>
