@@ -340,7 +340,6 @@ function createGrassTextures(cBase, cMid, cBright) {
 }
 
 function createRockTextures(cBase, cDark, cLight) {
-  // Natural mottled granite/sandstone WITHOUT ugly straight lines
   const c = document.createElement('canvas'), b = document.createElement('canvas');
   c.width = b.width = 256; c.height = b.height = 256;
   const ctx = c.getContext('2d'), bctx = b.getContext('2d');
@@ -386,9 +385,9 @@ function createWaterfallTex(cStream) {
   const c = document.createElement('canvas'); c.width = 128; c.height = 256;
   const ctx = c.getContext('2d');
   ctx.fillStyle = cStream; ctx.fillRect(0, 0, 128, 256);
-  for (let i = 0; i < 75; i++) {
-    ctx.fillStyle = i % 2 === 0 ? 'rgba(255,255,255,0.8)' : 'rgba(224,242,254,0.48)';
-    ctx.fillRect((i * 29) % 128, (i * 53) % 256, 3 + (i % 5), 28 + (i % 36));
+  for (let i = 0; i < 85; i++) {
+    ctx.fillStyle = i % 2 === 0 ? 'rgba(255,255,255,0.85)' : 'rgba(224,242,254,0.52)';
+    ctx.fillRect((i * 29) % 128, (i * 53) % 256, 3 + (i % 6), 28 + (i % 38));
   }
   const tex = new THREE.CanvasTexture(c);
   tex.wrapS = tex.wrapT = THREE.RepeatWrapping; tex.repeat.set(1, 2);
@@ -442,7 +441,7 @@ function createShirtFrontTex() {
   return new THREE.CanvasTexture(c);
 }
 
-// ===================== FACE PHOTO & REAL 3D GLB LOADER (MESHY) =====================
+// ===================== FACE PHOTO & ANIMATED 3D GLB LOADER =====================
 const facePreviewCanvas = document.getElementById('facePreviewCanvas');
 const facePreviewCtx = facePreviewCanvas.getContext('2d');
 const headTexCanvas = document.createElement('canvas'); headTexCanvas.width = 256; headTexCanvas.height = 256;
@@ -450,6 +449,7 @@ const headTexCtx = headTexCanvas.getContext('2d');
 const heroFaceTexture = new THREE.CanvasTexture(headTexCanvas);
 let uploadedPhoto = null;
 let customGLBTemplate = null, customGLBAnimations = [], heroMixer = null, heroAction = null;
+const glbLegUniform = { value: 0 };
 
 function drawHeroFace() {
   const zoom = parseFloat(document.getElementById('photoZoom').value) || 1.55;
@@ -487,6 +487,39 @@ const dracoLoader = new THREE.DRACOLoader();
 dracoLoader.setDecoderPath('https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/libs/draco/');
 gltfLoader.setDRACOLoader(dracoLoader);
 
+function injectLegAnimationShader(rootWrapper, model) {
+  rootWrapper.updateMatrixWorld(true);
+  const rootInv = new THREE.Matrix4().copy(rootWrapper.matrixWorld).invert();
+  model.traverse(c => {
+    if (!c.isMesh || !c.material) return;
+    const meshToChar = new THREE.Matrix4().multiplyMatrices(rootInv, c.matrixWorld);
+    const charToMesh = new THREE.Matrix4().copy(meshToChar).invert();
+    const mats = Array.isArray(c.material) ? c.material : [c.material];
+    const cloned = mats.map(m => {
+      const nm = m.clone();
+      nm.onBeforeCompile = shader => {
+        shader.uniforms.uLegSwing = glbLegUniform;
+        shader.uniforms.uMeshToChar = { value: meshToChar };
+        shader.uniforms.uCharToMesh = { value: charToMesh };
+        shader.vertexShader =
+          `uniform float uLegSwing;\nuniform mat4 uMeshToChar, uCharToMesh;\n` +
+          shader.vertexShader.replace(
+            '#include <begin_vertex>',
+            `vec4 cPos = uMeshToChar * vec4(position, 1.0);
+             float hNorm = clamp(cPos.y / 2.35, 0.0, 1.0);
+             float legMask = smoothstep(0.38, 0.10, hNorm);
+             float side = clamp(cPos.x / 0.20, -1.0, 1.0);
+             cPos.z += uLegSwing * side * legMask * 0.48;
+             cPos.y += abs(uLegSwing * side) * legMask * 0.14;
+             vec3 transformed = (uCharToMesh * cPos).xyz;`
+          );
+      };
+      return nm;
+    });
+    c.material = Array.isArray(c.material) ? cloned : cloned[0];
+  });
+}
+
 function normalizeAndStoreGLB(gltf, label) {
   const model = gltf.scene;
   const box = new THREE.Box3().setFromObject(model);
@@ -497,11 +530,10 @@ function normalizeAndStoreGLB(gltf, label) {
   model.traverse(c => { if (c.isMesh) { c.castShadow = true; c.receiveShadow = true; } });
   customGLBTemplate = model;
   customGLBAnimations = gltf.animations || [];
-  document.getElementById('glbStatus').textContent = `✅ تم تحميل المجسم (${label})`;
+  document.getElementById('glbStatus').textContent = `✅ تم تحميل المجسم بالحركة (${label})`;
   if (heroMesh && gameState === 'menu') loadLevel(currentLevelIdx);
 }
 
-// Auto-load hero.glb & face.jpg from GitHub if present
 gltfLoader.load('hero.glb', gltf => normalizeAndStoreGLB(gltf, 'hero.glb'), undefined, () => {});
 (function initSavedFace() {
   const saved = localStorage.getItem('mb_saved_photo');
@@ -568,22 +600,15 @@ renderer.toneMappingExposure = 1.08;
 const scene = new THREE.Scene();
 const camera = new THREE.PerspectiveCamera(48, window.innerWidth / window.innerHeight, 0.1, 280);
 
-const hemiLight = new THREE.HemisphereLight(0xe0f2fe, 0x365314, 0.78);
-scene.add(hemiLight);
+const hemiLight = new THREE.HemisphereLight(0xe0f2fe, 0x365314, 0.78); scene.add(hemiLight);
 const dirLight = new THREE.DirectionalLight(0xfffbeb, 1.3);
-dirLight.position.set(16, 28, 18);
-dirLight.castShadow = true;
-dirLight.shadow.mapSize.set(1024, 1024);
-dirLight.shadow.camera.near = 2; dirLight.shadow.camera.far = 85;
-const sd = 24;
-dirLight.shadow.camera.left = -sd; dirLight.shadow.camera.right = sd;
-dirLight.shadow.camera.top = sd; dirLight.shadow.camera.bottom = -sd;
-dirLight.shadow.bias = -0.0008;
+dirLight.position.set(16, 28, 18); dirLight.castShadow = true;
+dirLight.shadow.mapSize.set(1024, 1024); dirLight.shadow.camera.near = 2; dirLight.shadow.camera.far = 85;
+const sd = 24; dirLight.shadow.camera.left = -sd; dirLight.shadow.camera.right = sd;
+dirLight.shadow.camera.top = sd; dirLight.shadow.camera.bottom = -sd; dirLight.shadow.bias = -0.0008;
 scene.add(dirLight); scene.add(dirLight.target);
 
-let worldGroup = new THREE.Group();
-scene.add(worldGroup);
-
+let worldGroup = new THREE.Group(); scene.add(worldGroup);
 const stripeTex = createStripedClothTex(), shirtFrontTex = createShirtFrontTex(), hairTex = createHairTexture(), coinTex = createCoinTex();
 
 // ===================== HERO, ENEMIES & NATURAL SCENERY =====================
@@ -597,6 +622,8 @@ function buildHero() {
       heroMixer = new THREE.AnimationMixer(model);
       heroAction = heroMixer.clipAction(customGLBAnimations[0]);
       heroAction.play();
+    } else {
+      injectLegAnimationShader(wrapper, model);
     }
     wrapper.userData = { isGLB: true, model };
     return wrapper;
@@ -712,17 +739,18 @@ function buildAlpineMountainRange(len, rockCol, snowCol, valleyCol) {
   mesh.position.set(len / 2, 0, -48); return mesh;
 }
 
-function buildWaterfallFormation(x, cliffMat, wfTex) {
+function buildWaterfallFormation(x, wfTex) {
   const g = new THREE.Group();
-  [{ x: -3.2, y: 2.5, z: -0.6, sx: 2.6, sy: 5.8, sz: 2.2 }, { x: 3.2, y: 2.8, z: -0.5, sx: 2.7, sy: 6.2, sz: 2.2 }, { x: 0, y: 6.8, z: -1.4, sx: 4.8, sy: 3.8, sz: 2.4 }].forEach((cl, idx) => {
-    const rock = new THREE.Mesh(new THREE.DodecahedronGeometry(1.3, 1), cliffMat);
+  const slateMat = new THREE.MeshStandardMaterial({ color: 0x475569, roughness: 0.9, flatShading: true });
+  [{ x: -4.2, y: 3.0, z: -1.4, sx: 2.2, sy: 6.5, sz: 2.0 }, { x: 4.2, y: 3.4, z: -1.4, sx: 2.3, sy: 6.8, sz: 2.0 }, { x: 0, y: 8.5, z: -2.2, sx: 5.5, sy: 3.2, sz: 2.2 }].forEach((cl, idx) => {
+    const rock = new THREE.Mesh(new THREE.DodecahedronGeometry(1.3, 1), slateMat);
     rock.scale.set(cl.sx, cl.sy, cl.sz); rock.rotation.set(idx * 0.4, idx * 0.9, 0.2); rock.position.set(cl.x, cl.y, cl.z); g.add(rock);
   });
-  const wf = new THREE.Mesh(new THREE.PlaneGeometry(3.8, 12.5), new THREE.MeshBasicMaterial({ map: wfTex, transparent: true, opacity: 0.9 }));
-  wf.position.set(0, 3.2, 0.45); g.add(wf);
-  const foam = new THREE.Mesh(new THREE.CylinderGeometry(2.8, 3.4, 0.4, 16), new THREE.MeshBasicMaterial({ color: 0xf0f9ff, transparent: true, opacity: 0.86 }));
-  foam.position.set(0, -3.0, 1.4); g.add(foam);
-  g.position.set(x, 0, -22); return g;
+  const wf = new THREE.Mesh(new THREE.PlaneGeometry(5.6, 13.8), new THREE.MeshBasicMaterial({ map: wfTex, transparent: true, opacity: 0.92 }));
+  wf.position.set(0, 3.4, 0.1); g.add(wf);
+  const foam = new THREE.Mesh(new THREE.CylinderGeometry(3.6, 4.4, 0.4, 16), new THREE.MeshBasicMaterial({ color: 0xf0f9ff, transparent: true, opacity: 0.88 }));
+  foam.position.set(0, -3.0, 1.2); g.add(foam);
+  g.position.set(x, 0, -25); return g;
 }
 
 function buildGoalFlag() {
@@ -741,11 +769,11 @@ let animatedWaterMaps = [], animatedWaterfallTex = null, heroMesh = null, goalX 
 const player = { x: 2, y: 2, vx: 0, vy: 0, onGround: false, coyoteTimer: 0, jumpBuffer: 0, facing: 1, coins: 0, hearts: 3, hurtTimer: 0, lastSafeX: 2, lastSafeY: 2 };
 let camMode = 0;
 
-function spawnBurst(x, y, z, color, count = 12) {
+function spawnBurst(x, y, z, color, count = 12, speed = 9, life = 0.65) {
   for (let i = 0; i < count; i++) {
-    const m = new THREE.Mesh(new THREE.SphereGeometry(0.14, 6, 6), new THREE.MeshBasicMaterial({ color }));
+    const m = new THREE.Mesh(new THREE.SphereGeometry(0.13, 6, 6), new THREE.MeshBasicMaterial({ color }));
     m.position.set(x, y, z); worldGroup.add(m);
-    particles.push({ mesh: m, vx: (Math.random() - 0.5) * 9, vy: Math.random() * 7 + 2, vz: (Math.random() - 0.5) * 6, life: 0.65 });
+    particles.push({ mesh: m, vx: (Math.random() - 0.5) * speed, vy: Math.random() * (speed * 0.7) + 1.5, vz: (Math.random() - 0.5) * speed * 0.6, life });
   }
 }
 
@@ -775,13 +803,12 @@ function loadLevel(idx) {
     new THREE.MeshStandardMaterial({ map: waterT.map, bumpMap: waterT.bump, bumpScale: 0.22, roughness: 0.16, metalness: 0.12, transparent: true, opacity: 0.95 })
   );
   river.rotation.x = -Math.PI / 2; river.position.set(cfg.length / 2, -3.2, -12); river.receiveShadow = true; worldGroup.add(river);
-
   worldGroup.add(buildAlpineMountainRange(cfg.length, 0x334155, 0xf8fafc, cfg.grass[0]));
 
   for (let bx = -10; bx < cfg.length + 60; bx += 26) {
-    if (bx % 52 === 16) worldGroup.add(buildWaterfallFormation(bx, cliffMat, animatedWaterfallTex));
+    if (bx % 52 === 16) worldGroup.add(buildWaterfallFormation(bx, animatedWaterfallTex));
     const pine = buildPineTree(barkTex, cfg.grass);
-    pine.position.set(bx, -2.6, -10 - (bx % 5)); pine.scale.setScalar(1.25); worldGroup.add(pine);
+    pine.position.set(bx, -2.6, -11 - (bx % 5)); pine.scale.setScalar(1.25); worldGroup.add(pine);
     const boulder = new THREE.Mesh(new THREE.DodecahedronGeometry(1.2, 1), cliffMat);
     boulder.scale.set(1.4, 0.7, 1.1); boulder.position.set(bx + 9, -3.1, -6 - (bx % 4)); worldGroup.add(boulder);
   }
@@ -938,7 +965,7 @@ document.getElementById('btnMute').addEventListener('click', e => { SoundEngine.
 window.addEventListener('resize', () => { camera.aspect = window.innerWidth / window.innerHeight; camera.updateProjectionMatrix(); renderer.setSize(window.innerWidth, window.innerHeight); checkOrientationBanner(); });
 window.addEventListener('orientationchange', checkOrientationBanner);
 
-let lastTime = performance.now(), runCycle = 0;
+let lastTime = performance.now(), runCycle = 0, stepDustTimer = 0;
 function damagePlayer(knockDir = -1) {
   if (player.hurtTimer > 0) return;
   player.hearts--; player.hurtTimer = 1.4; player.vy = 8.5; player.vx = knockDir * 5.5;
@@ -966,11 +993,14 @@ function animate(now) {
     if (player.jumpBuffer > 0) player.jumpBuffer -= dt;
     if (player.jumpBuffer > 0 && player.coyoteTimer > 0) {
       player.vy = 14.8; player.onGround = false; player.coyoteTimer = 0; player.jumpBuffer = 0; SoundEngine.jump();
+      spawnBurst(player.x, player.y + 0.1, 0, 0xfef08a, 6, 4, 0.35);
     }
+    const wasOnGround = player.onGround;
     const prevY = player.y; player.vy -= 32 * dt; player.y += player.vy * dt; player.onGround = false;
     for (const p of platforms) {
       if (Math.abs(player.x - p.x) <= p.w / 2 + 0.35 && player.vy <= 0 && prevY >= p.topY - 0.25 && player.y <= p.topY + 0.08) {
         player.y = p.topY; player.vy = 0; player.onGround = true;
+        if (!wasOnGround) spawnBurst(player.x, player.y + 0.1, 0, 0xd9f99d, 5, 3.5, 0.3);
         if (p.dx) player.x += p.dx;
         if (p.movingRange === 0) { player.lastSafeX = p.x; player.lastSafeY = p.topY + 1.2; }
       }
@@ -983,25 +1013,38 @@ function animate(now) {
     if (player.hurtTimer > 0) { player.hurtTimer -= dt; heroMesh.visible = Math.floor(player.hurtTimer * 16) % 2 === 0; } else heroMesh.visible = true;
 
     heroMesh.position.set(player.x, player.y, 0);
-    heroMesh.rotation.y += ((player.facing > 0 ? 0.55 : -0.55) - heroMesh.rotation.y) * Math.min(1, dt * 12);
+    const targetRotY = player.facing > 0 ? 0.95 : -0.95;
+    heroMesh.rotation.y += (targetRotY - heroMesh.rotation.y) * Math.min(1, dt * 12);
 
+    const isMoving = Math.abs(player.vx) > 0.6;
     if (heroMesh.userData.isGLB) {
-      if (heroMixer) { heroMixer.update(dt * (Math.abs(player.vx) > 0.5 ? 1.4 : 0.35)); }
-      else {
-        // Lively procedural hop & lean for static Meshy GLB model
-        if (player.onGround && Math.abs(player.vx) > 0.6) {
-          runCycle += dt * 12;
-          heroMesh.position.y = player.y + Math.abs(Math.sin(runCycle)) * 0.18;
-          heroMesh.rotation.z = -player.facing * 0.1 + Math.sin(runCycle) * 0.06;
+      if (heroMixer) {
+        heroMixer.update(dt * (isMoving ? 1.5 : 0.4));
+      } else {
+        if (player.onGround && isMoving) {
+          runCycle += dt * 15;
+          glbLegUniform.value = Math.sin(runCycle) * 1.15;
+          heroMesh.position.y = player.y + Math.abs(Math.sin(runCycle)) * 0.22;
+          heroMesh.rotation.z = -player.facing * 0.12 + Math.cos(runCycle) * 0.07;
+          heroMesh.scale.set(1, 1 - Math.abs(Math.sin(runCycle)) * 0.05, 1);
+          stepDustTimer -= dt;
+          if (stepDustTimer <= 0) { stepDustTimer = 0.22; spawnBurst(player.x - player.facing * 0.3, player.y + 0.1, 0, 0xe2e8f0, 3, 2.5, 0.28); }
         } else if (!player.onGround) {
-          heroMesh.rotation.z = -player.facing * 0.18;
+          glbLegUniform.value += (1.15 - glbLegUniform.value) * Math.min(1, dt * 14);
+          heroMesh.rotation.z += (-player.facing * 0.2 - heroMesh.rotation.z) * Math.min(1, dt * 10);
+          const stretch = player.vy > 0 ? 1.07 : 0.96;
+          heroMesh.scale.set(1 / Math.sqrt(stretch), stretch, 1 / Math.sqrt(stretch));
         } else {
+          // Gentle living breathing idle
+          glbLegUniform.value *= 0.82;
           heroMesh.rotation.z *= 0.82;
+          const breath = 1 + Math.sin(now * 0.004) * 0.025;
+          heroMesh.scale.set(1, breath, 1);
         }
       }
     } else {
       const { armL, armR, legL, legR } = heroMesh.userData;
-      if (player.onGround && Math.abs(player.vx) > 0.6) {
+      if (player.onGround && isMoving) {
         runCycle += dt * Math.abs(player.vx) * 1.8; const s = Math.sin(runCycle) * 0.78;
         legL.rotation.x = s; legR.rotation.x = -s; armL.rotation.x = -s * 0.85; armR.rotation.x = s * 0.85;
       } else if (!player.onGround) {
